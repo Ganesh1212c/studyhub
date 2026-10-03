@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Business Analytics - Week 1</title>
+  <meta name="description" content="Business Analytics, Week 1: data visualization, misleading visuals, and the practice assignment with how to answer each question.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="theme.js"></script>
+</head>
+<body class="ba">
+
+<div class="progress" aria-hidden="true"></div>
+
+<!-- Pixel sprites reused across the page -->
+<svg class="sprites" aria-hidden="true" focusable="false">
+  <symbol id="cloud" viewBox="0 0 16 4">
+    <path fill="#ffffff" d="M3 0h3v1H3z M8 0h4v1H8z M2 1h11v1H2z M1 2h14v1H1z M0 3h16v1H0z"/>
+    <path fill="#d4ecfb" d="M0 3h16v1H0z"/>
+  </symbol>
+  <symbol id="star" viewBox="0 0 5 5">
+    <path fill="#ffc233" d="M2 0h1v5H2z M0 2h5v1H0z"/>
+    <path fill="#fff6c8" d="M2 2h1v1H2z"/>
+  </symbol>
+
+  <!-- Chart icons (24 x 24 each) -->
+  <symbol id="ch-pie" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10" fill="#ffe66d" stroke="#2b2d42" stroke-width="2"/>
+    <path d="M12 12V2A10 10 0 0 1 22 12Z" fill="#ff7b7b" stroke="#2b2d42" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M12 12H22A10 10 0 0 1 8.6 21.4Z" fill="#b9f0d5" stroke="#2b2d42" stroke-width="2" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="ch-stack" viewBox="0 0 24 24">
+    <g stroke="#2b2d42" stroke-width="1.6" stroke-linejoin="round">
+      <rect x="2" y="12" width="5.5" height="9" fill="#ff7b7b"/>
+      <rect x="2" y="5" width="5.5" height="7" fill="#8ecae6"/>
+      <rect x="9.3" y="9" width="5.5" height="12" fill="#ff7b7b"/>
+      <rect x="9.3" y="3" width="5.5" height="6" fill="#8ecae6"/>
+      <rect x="16.6" y="14" width="5.5" height="7" fill="#ff7b7b"/>
+      <rect x="16.6" y="9" width="5.5" height="5" fill="#8ecae6"/>
+    </g>
+    <path d="M1 21.6H23" stroke="#2b2d42" stroke-width="2"/>
+  </symbol>
+  <symbol id="ch-bar" viewBox="0 0 24 24">
+    <g stroke="#2b2d42" stroke-width="1.6" stroke-linejoin="round" fill="#8ecae6">
+      <rect x="3" y="2.5" width="19" height="5.5"/>
+      <rect x="3" y="9.5" width="13" height="5.5"/>
+      <rect x="3" y="16.5" width="8" height="5.5"/>
+    </g>
+    <path d="M2.6 1V23" stroke="#2b2d42" stroke-width="2"/>
+  </symbol>
+  <symbol id="ch-line" viewBox="0 0 24 24">
+    <path d="M2 2V22H23" fill="none" stroke="#2b2d42" stroke-width="2"/>
+    <path d="M4 17L9 11L14 14L21 5" fill="none" stroke="#ff7b7b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+    <g fill="#ffe66d" stroke="#2b2d42" stroke-width="1.3">
+      <circle cx="4" cy="17" r="1.8"/><circle cx="9" cy="11" r="1.8"/><circle cx="14" cy="14" r="1.8"/><circle cx="21" cy="5" r="1.8"/>
+    </g>
+  </symbol>
+  <symbol id="ch-hist" viewBox="0 0 24 24">
+    <g stroke="#2b2d42" stroke-width="1.6" stroke-linejoin="round" fill="#b9f0d5">
+      <rect x="2" y="15" width="4.2" height="7"/>
+      <rect x="6.2" y="8" width="4.2" height="14"/>
+      <rect x="10.4" y="3" width="4.2" height="19"/>
+      <rect x="14.6" y="9" width="4.2" height="13"/>
+      <rect x="18.8" y="16" width="3.4" height="6"/>
+    </g>
+  </symbol>
+  <symbol id="ch-scatter" viewBox="0 0 24 24">
+    <path d="M2 2V22H23" fill="none" stroke="#2b2d42" stroke-width="2"/>
+    <path d="M5 18L21 6" stroke="#2b2d42" stroke-width="1.4" stroke-dasharray="3 2.5"/>
+    <g fill="#ff7b7b" stroke="#2b2d42" stroke-width="1.3">
+      <circle cx="6" cy="17" r="1.9"/><circle cx="9.5" cy="12.5" r="1.9"/><circle cx="12" cy="16" r="1.9"/>
+      <circle cx="15" cy="10" r="1.9"/><circle cx="18" cy="12" r="1.9"/><circle cx="20" cy="6.5" r="1.9"/>
+    </g>
+  </symbol>
+  <symbol id="ch-box" viewBox="0 0 24 24">
+    <g stroke="#2b2d42" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 10V7M9 7H15M12 17V21M9 21H15" fill="none"/>
+      <rect x="6.5" y="10" width="11" height="7" fill="#ffe66d"/>
+      <path d="M6.5 13.5H17.5" fill="none" stroke-width="2.4"/>
+    </g>
+    <g fill="#ff7b7b" stroke="#2b2d42" stroke-width="1.2">
+      <circle cx="10.6" cy="3.6" r="1.3"/><circle cx="13.6" cy="2" r="1.3"/>
+    </g>
+  </symbol>
+  <symbol id="ch-table" viewBox="0 0 24 24">
+    <rect x="2" y="3" width="20" height="18" rx="2" fill="#fff" stroke="#2b2d42" stroke-width="2"/>
+    <path d="M2 9H22M2 15H22M9 3V21" fill="none" stroke="#2b2d42" stroke-width="1.6"/>
+    <rect x="2.8" y="3.8" width="18.4" height="4.4" fill="#8ecae6"/>
+  </symbol>
+</svg>
+
+<div class="sky" aria-hidden="true">
+  <svg class="cloud c1"><use href="#cloud"/></svg>
+  <svg class="cloud c2"><use href="#cloud"/></svg>
+  <svg class="cloud c3"><use href="#cloud"/></svg>
+  <svg class="cloud c4"><use href="#cloud"/></svg>
+</div>
+
+<header class="hud">
+  <div class="hud-inner">
+    <a class="brand" href="#top">
+      <svg class="brand-star" aria-hidden="true"><use href="#star"/></svg>
+      <abbr title="Business Analytics - Week 1">BA Wk 1</abbr>
+    </a>
+    <nav aria-label="Parts of Week 1">
+      <a class="hub-link" href="index.html">&lt; Hub</a>
+      <a href="#world-1" data-tab="world-1">1 Data Viz</a>
+      <a href="#world-2" data-tab="world-2">2 Tutorial</a>
+      <a href="#world-3" data-tab="world-3">3 Practice</a>
+    </nav>
+    <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to dark theme">
+      <svg class="tt-ico tt-moon" viewBox="0 0 12 12" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M3 1h2v1h-2zM2 2h2v1h-2zM1 3h3v1h-3zM0 4h4v1h-4zM0 5h4v1h-4zM0 6h4v1h-4zM0 7h5v1h-5zM1 8h6v1h-6zM1 9h9v1h-9zM2 10h7v1h-7zM5 11h2v1h-2z"/></svg>
+      <svg class="tt-ico tt-sun" viewBox="0 0 12 12" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M5 0h2v1h-2zM5 1h2v1h-2zM2 2h1v1h-1zM9 2h1v1h-1zM5 3h2v1h-2zM4 4h4v1h-4zM0 5h2v1h-2zM3 5h6v1h-6zM10 5h2v1h-2zM0 6h2v1h-2zM3 6h6v1h-6zM10 6h2v1h-2zM4 7h4v1h-4zM5 8h2v1h-2zM2 9h1v1h-1zM9 9h1v1h-1zM5 10h2v1h-2zM5 11h2v1h-2z"/></svg>
+      <span class="tt-label">Dark</span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="top">
+    <svg class="star st1" aria-hidden="true"><use href="#star"/></svg>
+    <svg class="star st2" aria-hidden="true"><use href="#star"/></svg>
+    <svg class="star st3" aria-hidden="true"><use href="#star"/></svg>
+
+    <div class="hero-text">
+      <p class="eyebrow">Week 1</p>
+      <h1 class="title">
+        <span style="--i:0;--c:#ff7b7b">Business</span>
+        <span style="--i:1;--c:#ffd23f">Analytics</span>
+      </h1>
+      <p class="lede">How to show data so people see the truth. Read the lessons, then test yourself.</p>
+    </div>
+
+    <div class="mascot">
+      <p class="bubble">Show the data!</p>
+      <svg class="robot" viewBox="0 0 12 12" role="img" aria-label="A friendly pixel robot" shape-rendering="crispEdges">
+        <rect x="5" y="0" width="2" height="1" fill="#ff7b7b"/>
+        <rect x="2" y="3" width="8" height="7" fill="#d9c7f0"/>
+        <path fill="#2b2d42" d="M5 1h2v1H5z M2 2h8v1H2z M1 3h1v7H1z M10 3h1v7h-1z M2 10h8v1H2z M3 4h2v2H3z M7 4h2v2H7z M4 8h1v1H4z M7 8h1v1H7z M5 9h2v1H5z M3 11h2v1H3z M7 11h2v1H7z"/>
+        <path fill="#ffffff" d="M3 4h1v1H3z M7 4h1v1H7z"/>
+        <path fill="#ffb3d1" d="M3 7h1v1H3z M8 7h1v1H8z"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============ PART PICKER ============ -->
+  <nav class="parts" aria-label="Choose a part" id="parts">
+    <a class="part" href="#world-1" data-tab="world-1" style="--pacc:var(--butter)">
+      <span class="part-n">1</span>
+      <span class="part-t">Data Visualization</span>
+      <span class="part-d">Why we visualise, the four principles, message, form, design and dashboards.</span>
+      <span class="part-c">19 lessons</span>
+    </a>
+    <a class="part" href="#world-2" data-tab="world-2" style="--pacc:var(--sky-2)">
+      <span class="part-n">2</span>
+      <span class="part-t">Misleading Visuals</span>
+      <span class="part-d">Tutorial 1.1: five ways a chart can lie, and how to spot them.</span>
+      <span class="part-c">5 lessons + checklist</span>
+    </a>
+    <a class="part" href="#world-3" data-tab="world-3" style="--pacc:var(--lilac)">
+      <span class="part-n">3</span>
+      <span class="part-t">Practice Quiz</span>
+      <span class="part-d">Practice Assignment 1 as an interactive quiz, with how to answer each question.</span>
+      <span class="part-c">15 questions</span>
+    </a>
+  </nav>
+
+  <!-- ============ WORLD 1 : Data Visualization slides ============ -->
+  <section class="world w1" id="world-1" data-tab>
+    <nav class="rail" aria-label="Lessons in part 1"><p class="rail-title">Lessons</p><ol><li class="grp">Why visualise</li><li><a href="#dv-02">Why Visualise Data?</a></li><li><a href="#dv-04">Types of Data</a></li><li><a href="#dv-06">Attributes of Visual Perception</a></li><li class="grp">Principles</li><li><a href="#dv-07">Four “Umbrella” Principles of Effective Visualization</a></li><li><a href="#dv-08">Principle 1: Know Your Purpose</a></li><li><a href="#dv-09">Principle 2: Ensure Integrity</a></li><li><a href="#dv-10">Principle 3: Maximize Data Ink</a></li><li><a href="#dv-11">Principle 4: Show Your Data; Annotate</a></li><li class="grp">Message</li><li><a href="#dv-12">Executing Your Display: A Three-Step Process</a></li><li><a href="#dv-14">Step 1: Defining the Message</a></li><li class="grp">Form</li><li><a href="#dv-16">Step 2: Choosing the Form</a></li><li><a href="#dv-17">Choosing Form: Table or Chart?</a></li><li><a href="#dv-19">Match the Message to the Chart</a></li><li><a href="#dv-21">Examples on Choice of Form</a></li><li class="grp">Design</li><li><a href="#dv-27">Step 3: Creating the Design</a></li><li><a href="#dv-28">Creating Design: Best Practices</a></li><li><a href="#dv-29">Graphs: Best Practices Lead to an Uncluttered Look</a></li><li class="grp">Dashboards</li><li><a href="#dv-31">Dashboards: What Are They?</a></li><li><a href="#dv-32">Basic Dashboard Design Principle</a></li></ol></nav>
+    <header class="world-head" id="dv-01">
+      <div class="world-title">
+        <span class="badge">Part 1</span>
+        <h2>Data Visualization</h2>
+      </div>
+<div class="world-intro">
+<p><strong>Data visualization</strong> means turning numbers into pictures so people understand them quickly and correctly. These slides go with lessons L1.1 Introduction to Data Visualization, L1.2 Defining the Message and L1.3 Creating Designs.</p>
+<ul class="bullets"><li><strong>Why</strong>: pictures are easy for the brain to read.</li><li><strong>Rules</strong>: four principles to check every chart against.</li><li><strong>Process</strong>: decide the message, choose the form (table or which chart), then design it.</li><li><strong>Dashboards</strong>: many small visuals on one screen.</li></ul>
+<p class="nb"><strong>For the practice questions:</strong> the three slides to know best are Types of Data, Table or Chart, and Match the Message to the Chart.</p>
+</div>
+    </header>
+
+    <div class="grid">
+
+      <!-- Slides 2, 3, 5 -->
+      <article class="slide" id="dv-02">
+        <header class="bar">
+          <h3><span class="ico" aria-hidden="true">👀</span>Why Visualise Data?</h3>
+          <span class="src">Slides 2, 3 and 5</span>
+        </header>
+        <div class="body">
+          <p class="sec-label">From the slide</p>
+          <div class="topics cols-2">
+            <div class="topic">
+              <h4>Good decisions need good data</h4>
+              <ul class="chips lit"><li>Good data</li><li>Understanding</li><li>Good decisions</li></ul>
+              <p>Good decisions are based on an accurate understanding of good data.</p>
+              <div class="ask">Do you need to be Einstein to make sense of your data?</div>
+              <div class="ans"><p><strong>No.</strong> A well-chosen picture does the hard thinking for you. Pick the right chart and anyone can see the pattern.</p></div>
+            </div>
+            <div class="topic">
+              <h4>Vision is our most powerful sense</h4>
+              <div class="stat">
+                <div><b>70%</b><span>sight</span></div>
+                <div><b>30%</b><span>all the other senses</span></div>
+              </div>
+              <p>On the slide the eye gets 70% and the other senses (hearing, taste, touch and so on) share the remaining 30%. Most of what we take in comes through our eyes, so show data as something to <em>see</em>.</p>
+            </div>
+          </div>
+          <div class="topic">
+            <h4>Benefits of visual representation</h4>
+            <ul class="bullets">
+              <li>Communicate complex information concisely and powerfully</li>
+              <li>Create a “picture” for reasoning about and analyzing quantitative and conceptual information</li>
+              <li>Makes cognitive processing easier</li>
+              <li>Provides “content/information rich” view at a glance</li>
+              <li>Directs attention toward the content rather than methodology</li>
+              <li>Describe, explore, summarize a set of numbers</li>
+              <li>Convey a message about the significance of the data</li>
+            </ul>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>Numbers on their own are hard work. To decide well you must <strong>understand</strong> the data, and a picture is the fastest way to get there.</p>
+<ul class="bullets"><li><strong>Sight is our strongest sense</strong>, so a chart is read in a blink while a table of numbers takes time.</li><li><strong>Easier thinking</strong>: the brain spends less effort, so you can focus on what the data means, not on how it was worked out.</li><li><strong>Everything at a glance</strong>: one picture can hold a lot of information and still be clear.</li><li><strong>Three jobs</strong>: describe the numbers, explore them to find patterns, and summarise them with a clear message.</li></ul>
+<p class="analogy"><strong>Think of it like this:</strong> directions to a friend's house. A list of GPS coordinates is accurate but useless in the car. A map shows the way at a glance.</p>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 4 -->
+      <article class="slide" id="dv-04">
+        <header class="bar">
+          <h3><span class="ico" aria-hidden="true">🧪</span>Types of Data</h3>
+          <span class="src">Slide 4</span>
+        </header>
+        <div class="body">
+          <p class="sec-label">From the slide</p>
+          <div class="dbox">
+            <h4>Data</h4>
+            <div class="dgrid">
+              <div class="dbox">
+                <h4>Categorical</h4>
+                <p>Defined categories or groups</p>
+                <p class="ex">Customer ratings, City</p>
+              </div>
+              <div class="dbox">
+                <h4>Numerical</h4>
+                <div class="dgrid">
+                  <div class="dbox">
+                    <h4>Discrete</h4>
+                    <p>Counted items</p>
+                    <p class="ex">Number of cars owned, Defects per hour</p>
+                  </div>
+                  <div class="dbox">
+                    <h4>Continuous</h4>
+                    <p>Measured characteristics</p>
+                    <p class="ex">Time, Pressure</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>Before you pick a chart, ask what kind of data you have. Three questions sort almost everything:</p>
+<ul class="bullets"><li><strong>Is it a label or a group?</strong> It is <strong>categorical</strong>. Examples: city, highest level of education, a rating like Poor / Average / Good. Even an age bucket such as "below 18" or "19 to 30" is categorical, because it is a group.</li><li><strong>Can you count it in whole steps (0, 1, 2, 3...)?</strong> It is <strong>discrete</strong>. Examples: number of cars owned, number of siblings, defects per hour (you count defects).</li><li><strong>Do you measure it, so any value in between is possible?</strong> It is <strong>continuous</strong>. Examples: time, pressure, weight, volume, density.</li></ul>
+<p class="nb"><strong>Quick test:</strong> counting gives discrete numbers, measuring gives continuous numbers, naming gives categories.</p>
+<p class="analogy"><strong>Think of it like this:</strong> money. The number of coins in your pocket is discrete. The exact weight of the coins is continuous. The type of coin (one rupee, two rupee) is categorical.</p>
+<p><strong>Used in the practice assignment:</strong> Q3, Q4 and Q5 are exactly this tree. See <a href="#q3">Q3 to Q5</a>.</p>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 6 -->
+      <article class="slide" id="dv-06">
+        <header class="bar">
+          <h3><span class="ico" aria-hidden="true">🔭</span>Attributes of Visual Perception</h3>
+          <span class="src">Slide 6</span>
+        </header>
+        <div class="body">
+          <p class="sec-label">From the slide</p>
+          <div class="topics cols-3">
+            <div class="topic">
+              <h4>Form</h4>
+              <ul class="chips lit">
+                <li>Length</li><li>Width</li><li>Orientation</li><li>Size</li><li>Shape</li>
+                <li>Curvature</li><li>Enclosure</li><li>Spatial grouping</li><li>Blur</li>
+              </ul>
+            </div>
+            <div class="topic">
+              <h4>Color</h4>
+              <ul class="chips lit">
+                <li>Hue</li><li>Intensity</li>
+              </ul>
+            </div>
+            <div class="topic">
+              <h4>Spatial</h4>
+              <ul class="chips lit">
+                <li>2-D position</li><li>Direction of motion</li>
+              </ul>
+            </div>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>These are the visual cues your brain notices almost instantly, without effort (they are often called pre-attentive attributes). A chart works by turning numbers into one of these cues:</p>
+<ul class="bullets"><li>The height of a bar is <strong>length</strong>.</li><li>The place of a dot on a scatter plot is <strong>2-D position</strong>.</li><li>A dark or light shade is colour <strong>intensity</strong>; red versus blue is <strong>hue</strong>.</li><li>The size of a bubble is <strong>size</strong>.</li></ul>
+<p class="nb"><strong>Not all cues are equal:</strong> the tutorial notes say our eyes are more sensitive to <strong>position</strong> than to <strong>area</strong>. That is why bar charts are easy to read and 3-D pies are not.</p>
+<p class="analogy"><strong>Think of it like this:</strong> road signs. They use colour, shape and size so a driver can read them in a split second.</p>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 7 -->
+      <article class="slide" id="dv-07">
+        <header class="bar">
+          <h3><span class="ico" aria-hidden="true">☂️</span>Four “Umbrella” Principles of Effective Visualization</h3>
+          <span class="src">Slide 7</span>
+        </header>
+        <div class="body">
+          <p class="sec-label">From the slide</p>
+          <div class="topics cols-4">
+            <div class="topic">
+              <h4>1 Know purpose</h4>
+              <p>Why am I making this? <a href="#dv-08">See card</a></p>
+            </div>
+            <div class="topic">
+              <h4>2 Ensure integrity</h4>
+              <p>No distortion of the truth. <a href="#dv-09">See card</a></p>
+            </div>
+            <div class="topic">
+              <h4>3 Maximize data ink; minimize non-data ink</h4>
+              <p>Only ink that shows data. <a href="#dv-10">See card</a></p>
+            </div>
+            <div class="topic">
+              <h4>4 Show your data; annotate</h4>
+              <p>Show the numbers and point out what matters. <a href="#dv-11">See card</a></p>
+            </div>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>Four habits to check every table or chart against before you share it:</p>
+<ul class="bullets"><li><strong>Know purpose</strong>: can I finish the sentence "My purpose in creating this is ..."?</li><li><strong>Ensure integrity</strong>: is the picture honest, not just the numbers?</li><li><strong>Maximize data ink</strong>: is there any decoration that tells the reader nothing? Remove it.</li><li><strong>Show your data; annotate</strong>: can the reader see the actual values and what to notice?</li></ul>
+<p class="analogy"><strong>Think of it like this:</strong> an umbrella. All four rules sit under one cover: a clear, honest picture that gets the message across.</p>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 8 -->
+      <article class="slide" id="dv-08">
+        <header class="bar">
+          <h3><span class="ico" aria-hidden="true">🎯</span>Principle 1: Know Your Purpose</h3>
+          <span class="src">Slide 8</span>
+        </header>
+        <div class="body">
+          <p class="sec-label">From the slide</p>
+          <div class="topics cols-2">
+            <div class="topic">
+              <h4>Write a purpose statement</h4>
+              <ul class="bullets">
+                <li>Have a purpose statement for every table or graph you create</li>
+                <li>Design the display to serve that purpose</li>
+              </ul>
+              <p class="callout">“My purpose in creating this is ____________”</p>
+            </div>
+            <div class="topic">
+              <h4>Example</h4>
+              <p>“My purpose in creating this graph is to help the audience see that only a small percentage of the patient base are candidates for this specific therapeutic regimen.”</p>
+              <p><span class="sticker warn">A purpose is not necessarily a message</span></p>
+            </div>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>Your <strong>purpose</strong> is why the chart exists and what you want the reader to see. Knowing it first makes every other choice easier: which chart, which colours, what to leave out.</p>
+<p>A <strong>purpose</strong> and a <strong>message</strong> are different. The purpose says what the chart is <em>for</em> ("help the audience see that few patients qualify"). The message is the specific statement the data proves ("only a small share of patients qualify").</p>
+<p class="nb"><strong>Quick check:</strong> if you cannot finish the purpose sentence, do not make the chart yet.</p>
+<p class="analogy"><strong>Think of it like this:</strong> packing for a trip. First decide where you are going, then decide what goes in the bag.</p>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 9 -->
+      <article class="slide" id="dv-09">
+        <header class="bar">
+          <h3><span class="ico" aria-hidden="true">⚖️</span>Principle 2: Ensure Integrity</h3>
+          <span class="src">Slide 9</span>
+        </header>
+        <div class="body">
+          <p class="sec-label">From the slide</p>
+          <p class="lead">Ensuring integrity is not just being correct; it also means no distortion. The information must be correct <em>and</em> presented in a way that doesn't distort the truth.</p>
+          <div class="ask" data-label="Slide says">Compare these two earnings-per-share graphs. The numbers are the same, but different scales convey different messages. The graph on the left is deceitful.</div>
+          <div class="versus">
+            <div class="vbox">
+              <figure class="mchart" style="--h:150px">
+                <figcaption>Earnings per share, axis starts at $1.50 <span class="verdict bad">Misleading</span></figcaption>
+                <div class="plot">
+                  <ul class="yt"><li>$2.30</li><li>$2.10</li><li>$1.90</li><li>$1.70</li><li>$1.50</li></ul>
+                  <div class="area">
+                    <span class="mb" style="--v:.175"><b>$1.64</b><em>1999</em></span>
+                    <span class="mb" style="--v:.875"><b>$2.20</b><em>2000</em></span>
+                    <span class="mb" style="--v:.75"><b>$2.10</b><em>2001</em></span>
+                    <span class="mb" style="--v:.3125"><b>$1.75</b><em>2002</em></span>
+                    <span class="mb" style="--v:.875"><b>$2.20</b><em>2003e</em></span>
+                  </div>
+                </div>
+              </figure>
+            </div>
+            <div class="vbox">
+              <figure class="mchart" style="--h:150px">
+                <figcaption>Same data, axis starts at $0 <span class="verdict good">Honest</span></figcaption>
+                <div class="plot">
+                  <ul class="yt"><li>$2.50</li><li>$2.00</li><li>$1.50</li><li>$1.00</li><li>$0.50</li><li>$0.00</li></ul>
+                  <div class="area">
+                    <span class="mb good" style="--v:.656"><b>$1.64</b><em>1999</em></span>
+                    <span class="mb good" style="--v:.88"><b>$2.20</b><em>2000</em></span>
+                    <span class="mb good" style="--v:.84"><b>$2.10</b><em>2001</em></span>
+                    <span class="mb good" style="--v:.70"><b>$1.75</b><em>2002</em></span>
+                    <span class="mb good" style="--v:.88"><b>$2.20</b><em>2003e</em></span>
+                  </div>
+                </div>
+              </figure>
+            </div>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p><strong>Integrity</strong> means the picture tells the same story as the numbers. Correct numbers can still give a false impression if the chart is drawn in a sneaky way.</p>
+<p>Look at the left chart. Its axis starts at $1.50, so the 1999 bar looks about <strong>5 times</strong> shorter than the 2000 bar. In truth $2.20 is only about <strong>1.3 times</strong> $1.64. The right chart starts at $0, so bar heights match the values.</p>
+<ul class="bullets"><li>For a <strong>bar or column chart</strong>, the length of the bar <em>is</em> the number, so the axis must start at zero.</li><li>Do not stretch or squeeze the scale to make a change look bigger or smaller.</li><li>If the axis does not start at zero, say so clearly, or use a chart type where that is fine (such as a line chart).</li></ul>
+<p class="analogy"><strong>Think of it like this:</strong> a funhouse mirror. It does show you, but not as you really are.</p>
+<p class="nb"><strong>Exam answer:</strong> the <strong>left</strong> graph is the deceitful one, because the y-axis does not start at zero.</p>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 10 -->
+      <article class="slide" id="dv-10">
+        <header class="bar">
+          <h3><span class="ico" aria-hidden="true">🖋️</span>Principle 3: Maximize Data Ink</h3>
+          <span class="src">Slide 10</span>
+        </header>
+        <div class="body">
+          <p class="sec-label">From the slide</p>
+          <p class="lead">Use the least amount of ink to convey the most amount of information.</p>
+          <div class="vbox">
+            <span class="verdict bad">Too much ink</span>
+            <div class="tbl-wrap">
+              <table class="tbl heavy tight">
+                <thead><tr><th></th><th>CALLS/DAY</th><th>DAYS/YEAR</th><th>CALLS/YEAR</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">PCP</th><td class="num">8</td><td class="num">200</td><td class="num">1,600</td></tr>
+                  <tr><th scope="row">NEUROLOGY</th><td class="num">5</td><td class="num">200</td><td class="num">1,000</td></tr>
+                  <tr><th scope="row">CV</th><td class="num">5.5</td><td class="num">200</td><td class="num">1,100</td></tr>
+                  <tr><th scope="row">ONCOLOGY</th><td class="num">5</td><td class="num">200</td><td class="num">1,000</td></tr>
+                  <tr><th scope="row">VIROLOGY</th><td class="num">5</td><td class="num">200</td><td class="num">1,000</td></tr>
+                  <tr><th scope="row">TRANSPLANT</th><td class="num">5</td><td class="num">200</td><td class="num">1,000</td></tr>
+                  <tr><th scope="row">P/T DERM</th><td class="num">8</td><td class="num">200</td><td class="num">1,600</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="vbox">
+            <span class="verdict good">Same data, less ink</span>
+            <div class="tbl-wrap">
+              <table class="tbl plain tight">
+                <caption style="text-align:left;font-weight:700;padding:0 0 4px">Table 1 – Call Totals by Specialty</caption>
+                <thead><tr><th></th><th class="num">Calls/Day</th><th class="num">Days/Year</th><th class="num">Calls/Year</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">PCP</th><td class="num">8.0</td><td class="num">200</td><td class="num">1,600</td></tr>
+                  <tr><th scope="row">Neurology</th><td class="num">5.0</td><td class="num">200</td><td class="num">1,000</td></tr>
+                  <tr><th scope="row">CV</th><td class="num">5.5</td><td class="num">200</td><td class="num">1,100</td></tr>
+                  <tr><th scope="row">Oncology</th><td class="num">5.0</td><td class="num">200</td><td class="num">1,000</td></tr>
+                  <tr><th scope="row">Virology</th><td class="num">5.0</td><td class="num">200</td><td class="num">1,000</td></tr>
+                  <tr><th scope="row">Transplant</th><td class="num">5.0</td><td class="num">200</td><td class="num">1,000</td></tr>
+                  <tr><th scope="row">P/T Derm</th><td class="num">8.0</td><td class="num">200</td><td class="num">1,600</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p><strong>Data ink</strong> is the ink that shows the numbers: the bars, the points, the values. <strong>Non-data ink</strong> is everything else: heavy borders, shading, gridlines, decoration.</p>
+<p>Both tables above hold the same numbers. The first boxes every cell and floods it with yellow, so your eye has to fight through lines to reach the data. The second keeps only the numbers and a thin header line, so it is easier to read.</p>
+<p class="nb"><strong>Rule:</strong> remove non-data ink until taking away anything more would lose information.</p>
+<p class="analogy"><strong>Think of it like this:</strong> packing a small suitcase. Only take what you will actually use.</p>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 11 -->
+      <article class="slide" id="dv-11">
+        <header class="bar">
+          <h3><span class="ico" aria-hidden="true">📝</span>Principle 4: Show Your Data; Annotate</h3>
+          <span class="src">Slide 11</span>
+        </header>
+        <div class="body">
+          <p class="sec-label">From the slide</p>
+          <p class="lead">Don't hide data… show it. Use annotations.</p>
+          <div class="versus">
+            <div class="vbox">
+              <figure class="mchart nolabels" style="--h:120px">
+                <figcaption>No values <span class="verdict bad">Guess</span></figcaption>
+                <div class="plot">
+                  <ul class="yt"><li>100</li><li>50</li><li>0</li></ul>
+                  <div class="area">
+                    <span class="mb" style="--v:.30"><b>30</b><em>Mon</em></span>
+                    <span class="mb" style="--v:.55"><b>55</b><em>Tue</em></span>
+                    <span class="mb" style="--v:.42"><b>42</b><em>Wed</em></span>
+                    <span class="mb" style="--v:.78"><b>78</b><em>Thu</em></span>
+                  </div>
+                </div>
+              </figure>
+            </div>
+            <div class="vbox">
+              <figure class="mchart" style="--h:120px">
+                <figcaption>Values shown <span class="verdict good">Read</span></figcaption>
+                <div class="plot">
+                  <ul class="yt"><li>100</li><li>50</li><li>0</li></ul>
+                  <div class="area">
+                    <span class="mb" style="--v:.30"><b>30</b><em>Mon</em></span>
+                    <span class="mb" style="--v:.55"><b>55</b><em>Tue</em></span>
+                    <span class="mb" style="--v:.42"><b>42</b><em>Wed</em></span>
+                    <span class="mb hl" style="--v:.78"><b>78</b><em>Thu</em></span>
+                  </div>
+                </div>
+              </figure>
+              <p><span class="sw hl"></span>Annotation: Thursday is the best day.</p>
+            </div>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>Do not make the reader squint at the axis to guess a value. <strong>Show the data</strong> by writing the numbers on or beside the marks.</p>
+<p><strong>Annotate</strong> means adding a few words or a highlight that point to what matters, such as "sales jumped after the offer". The reader then knows where to look and what to conclude.</p>
+<p class="nb"><strong>Balance:</strong> label what matters, and delete labels that only add clutter.</p>
+<p class="analogy"><strong>Think of it like this:</strong> a museum. The painting is the data and the small plaque beside it is the annotation that tells you why it matters.</p>
+<p>The example above uses made-up numbers to show the idea.</p>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 12 -->
+      <article class="slide" id="dv-12">
+        <header class="bar">
+          <h3><span class="ico" aria-hidden="true">🪜</span>Executing Your Display: A Three-Step Process</h3>
+          <span class="src">Slide 12</span>
+        </header>
+        <div class="body">
+          <p class="sec-label">From the slide</p>
+          <ol class="steps">
+            <li>
+              <h4>Defining message</h4>
+              <ul class="bullets">
+                <li>What am I trying to communicate?</li>
+                <li>What is the message?</li>
+                <li>How do I make that message clear at a glance?</li>
+              </ul>
+            </li>
+            <li>
+              <h4>Choosing form</h4>
+              <ul class="bullets">
+                <li>Should I use text, table, graph, or diagram?</li>
+                <li>Or a combination?</li>
+              </ul>
+            </li>
+            <li>
+              <h4>Creating design</h4>
+              <ul class="bullets">
+                <li>What design principles lead to quick cognitive processing and effective communication of the message?</li>
+              </ul>
+            </li>
+          </ol>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>Always work in this order:</p>
+<ul class="bullets"><li><strong>Message</strong>: decide what you want to say, in one sentence.</li><li><strong>Form</strong>: choose how to show it: text, a table, a chart or a diagram.</li><li><strong>Design</strong>: make it clean and easy to read so the message lands quickly.</li></ul>
+<p>Most mistakes come from skipping step 1 and jumping straight to making a pretty chart.</p>
+<p class="analogy"><strong>Think of it like this:</strong> cooking. Choose the dish (message), choose the pan (form), then plate it nicely (design).</p>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slides 13-14 -->
+      <article class="slide" id="dv-14">
+        <header class="bar">
+          <h3><span class="ico" aria-hidden="true">🗣️</span>Step 1: Defining the Message</h3>
+          <span class="src">Slides 13 and 14</span>
+        </header>
+        <div class="body">
+          <p class="sec-label">From the slide</p>
+          <div class="ask">You've been asked to produce a data display that provides insight into the population of people with AIDS. Here is data on the ages of people with AIDS in the U.S. Given this data, what is the message that you would like to convey?</div>
+          <div class="topics cols-2">
+            <div class="topic">
+              <div class="tbl-wrap">
+                <table class="tbl">
+                  <thead><tr><th>Age group</th><th class="num">AIDS cases</th><th class="num">Share</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row">Under 5</th><td class="num">6,975</td><td class="num">0.9%</td></tr>
+                    <tr><th scope="row">5-12</th><td class="num">2,099</td><td class="num">0.3%</td></tr>
+                    <tr><th scope="row">13-19</th><td class="num">4,428</td><td class="num">0.5%</td></tr>
+                    <tr><th scope="row">20-24</th><td class="num">28,665</td><td class="num">3.5%</td></tr>
+                    <tr class="hl"><th scope="row">25-29</th><td class="num">105,060</td><td class="num">12.9%</td></tr>
+                    <tr class="hl"><th scope="row">30-34</th><td class="num">179,164</td><td class="num">22.0%</td></tr>
+                    <tr class="hl"><th scope="row">35-39</th><td class="num">182,857</td><td class="num">22.4%</td></tr>
+                    <tr class="hl"><th scope="row">40-44</th><td class="num">136,145</td><td class="num">16.7%</td></tr>
+                    <tr><th scope="row">45-49</th><td class="num">80,242</td><td class="num">9.8%</td></tr>
+                    <tr><th scope="row">50-54</th><td class="num">42,780</td><td class="num">5.2%</td></tr>
+                    <tr><th scope="row">55-59</th><td class="num">23,280</td><td class="num">2.9%</td></tr>
+                    <tr><th scope="row">60-64</th><td class="num">12,898</td><td class="num">1.6%</td></tr>
+                    <tr><th scope="row">Over 65</th><td class="num">11,555</td><td class="num">1.4%</td></tr>
+                  </tbody>
+                  <tfoot><tr><th scope="row">Total</th><td class="num">816,148</td><td class="num">100%</td></tr></tfoot>
+                </table>
+              </div>
+              <p class="note-line"><span class="sticker warn">Typo on the slide</span> The slide prints 25-29 as “10,5060”. It is <strong>105,060</strong>: the chart data says so and the column adds up to the 816,148 total. Shares are rounded, so they add to 100.1%.</p>
+            </div>
+            <div class="topic">
+              <h4>Two messages the slide offers</h4>
+              <ul class="bullets">
+                <li>Majority of AIDS cases are in the 25-44 age groups</li>
+                <li>AIDS is most prevalent in the 35-39 age group</li>
+              </ul>
+              <div class="ans" data-label="How to answer">
+                <p><strong>Both are true, and either can be the message.</strong> They answer different questions. Pick by purpose.</p>
+                <p>The range message is the stronger one here. Ages 25-44 hold <strong>603,226</strong> of 816,148 cases, which is <strong>73.9%</strong>, nearly 3 in 4. The single top group (35-39) holds only 22.4%, and it is barely ahead of 30-34 (182,857 vs 179,164, a gap of 3,693 cases).</p>
+              </div>
+            </div>
+          </div>
+          <div class="chart-scroll">
+            <figure class="mchart dense">
+              <figcaption>Cases by age group <span><span class="sw hl"></span>25-44</span> <span><span class="sw"></span>other ages</span></figcaption>
+              <div class="plot">
+                <ul class="yt"><li>200,000</li><li>150,000</li><li>100,000</li><li>50,000</li><li>0</li></ul>
+                <div class="area">
+                  <span class="mb" style="--v:.035"><em>Under 5</em></span>
+                  <span class="mb" style="--v:.0105"><em>5-12</em></span>
+                  <span class="mb" style="--v:.022"><em>13-19</em></span>
+                  <span class="mb" style="--v:.143"><em>20-24</em></span>
+                  <span class="mb hl" style="--v:.525"><em>25-29</em></span>
+                  <span class="mb hl" style="--v:.896"><em>30-34</em></span>
+                  <span class="mb hl" style="--v:.914"><em>35-39</em></span>
+                  <span class="mb hl" style="--v:.681"><em>40-44</em></span>
+                  <span class="mb" style="--v:.401"><em>45-49</em></span>
+                  <span class="mb" style="--v:.214"><em>50-54</em></span>
+                  <span class="mb" style="--v:.116"><em>55-59</em></span>
+                  <span class="mb" style="--v:.064"><em>60-64</em></span>
+                  <span class="mb" style="--v:.058"><em>Over 65</em></span>
+                </div>
+              </div>
+            </figure>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>The <strong>message</strong> is the one clear sentence you want the viewer to walk away with. To find it, look at the data and ask: <em>what stands out?</em></p>
+<ul class="bullets"><li>Find the biggest group and the smallest group.</li><li>Turn counts into shares (cases in a group divided by the total), because "nearly 3 in 4" is easier to grasp than "603,226".</li><li>Write the message as a short, true statement that the numbers can back up.</li></ul>
+<p>Here, adding up the four highlighted age groups gives 73.9% of all cases. That is a clear message you can then show with a chart.</p>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slides 15-16 -->
+      <article class="slide" id="dv-16">
+        <header class="bar">
+          <h3><span class="ico" aria-hidden="true">🔍</span>Step 2: Choosing the Form</h3>
+          <span class="src">Slides 15 and 16</span>
+        </header>
+        <div class="body">
+          <p class="sec-label">From the slide</p>
+          <div class="ask">Below are three ways to display the data to communicate the message from the distribution of AIDS sufferers. What is the most appropriate form?</div>
+          <div class="topics cols-3">
+            <div class="topic">
+              <svg class="cico" aria-hidden="true"><use href="#ch-table"/></svg>
+              <h4>Table</h4>
+              <p>Exact numbers, but 13 rows to scan. No pattern jumps out.</p>
+            </div>
+            <div class="topic">
+              <svg class="cico" aria-hidden="true"><use href="#ch-line"/></svg>
+              <h4>Line chart</h4>
+              <p>Shows the hump, but a line suggests a smooth trend over time. These are separate age groups.</p>
+            </div>
+            <div class="topic">
+              <svg class="cico" aria-hidden="true"><use href="#ch-hist"/></svg>
+              <h4>Column chart</h4>
+              <p>Each age group is its own column. The tall middle columns stand out at once.</p>
+            </div>
+          </div>
+          <div class="ans">
+            <p><strong>The column chart</strong> (the one on the right of the slide).</p>
+            <p>The message is about <strong>distribution</strong>: how cases spread across age groups. Slide 19 pairs "frequency, distribution" with the histogram / column chart. The table makes you do the comparing in your head, and the line chart wrongly hints at change over time.</p>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>Same data, three forms. To choose, ask: <em>what must the reader see?</em> Here they must see <strong>where most cases sit</strong>. Tall columns in the middle show that instantly.</p>
+<ul class="bullets"><li>Use a <strong>table</strong> when people need to look up exact values.</li><li>Use a <strong>line</strong> when something changes along a time axis.</li><li>Use <strong>columns</strong> when you compare separate groups or show how counts spread across them.</li></ul>
+<p class="analogy"><strong>Think of it like this:</strong> choosing a vehicle. A bicycle, a bus and a truck all move things, but only one suits the trip.</p>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slides 17-18 -->
+      <article class="slide" id="dv-17">
+        <header class="bar">
+          <h3><span class="ico" aria-hidden="true">🧾</span>Choosing Form: Table or Chart?</h3>
+          <span class="src">Slides 17 and 18</span>
+        </header>
+        <div class="body">
+          <p class="sec-label">From the slide</p>
+          <p class="lead">One key decision: display the data as a table or as a chart.</p>
+          <div class="topics cols-2">
+            <div class="topic">
+              <h4>Choose a table to…</h4>
+              <ul class="bullets">
+                <li>Display the complete data set</li>
+                <li>Focus on a specific item (highlighted) in the context of the complete data set</li>
+                <li>Present a wide range of data that is difficult to scale using a graph</li>
+                <li>Explain how numbers are derived – how results were calculated</li>
+              </ul>
+            </div>
+            <div class="topic">
+              <h4>Choose a chart to…</h4>
+              <ul class="bullets">
+                <li>Compare a slice of information</li>
+                <li>Show “cause of change” (vertical axis) vs. “effect” (horizontal axis)</li>
+                <li>Show change over time</li>
+                <li>Show patterns of data distribution (normal curve)</li>
+              </ul>
+            </div>
+          </div>
+          <div class="ask">Message: There is no apparent seasonality in sales in 2003 or 2004. Table or chart?</div>
+          <div class="topics cols-2">
+            <div class="topic">
+              <h4>Table: sales by month</h4>
+              <div class="tbl-wrap">
+                <table class="tbl tight">
+                  <thead><tr><th>Month</th><th class="num">2003</th><th class="num">2004</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row">Jan</th><td class="num">12.5</td><td class="num">17.0</td></tr>
+                    <tr><th scope="row">Feb</th><td class="num">14.3</td><td class="num">16.1</td></tr>
+                    <tr><th scope="row">Mar</th><td class="num">15.9</td><td class="num">15.4</td></tr>
+                    <tr><th scope="row">Apr</th><td class="num">15.0</td><td class="num">15.0</td></tr>
+                    <tr><th scope="row">May</th><td class="num">15.3</td><td class="num">14.6</td></tr>
+                    <tr><th scope="row">Jun</th><td class="num">15.7</td><td class="num">13.8</td></tr>
+                    <tr><th scope="row">Jul</th><td class="num">16.1</td><td class="num">12.5</td></tr>
+                    <tr><th scope="row">Aug</th><td class="num">16.2</td><td class="num">11.4</td></tr>
+                    <tr><th scope="row">Sep</th><td class="num">16.4</td><td class="num">10.9</td></tr>
+                    <tr><th scope="row">Oct</th><td class="num">16.5</td><td class="num">10.2</td></tr>
+                    <tr><th scope="row">Nov</th><td class="num">16.5</td><td class="num">9.7</td></tr>
+                    <tr><th scope="row">Dec</th><td class="num">16.4</td><td class="num">9.3</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="topic">
+              <h4>Chart: sales by month</h4>
+              <svg class="line17" viewBox="0 0 380 210" role="img" aria-label="Line chart of monthly sales in 2003 and 2004, both without a repeating yearly pattern" style="display:block;width:100%;height:auto">
+<path d="M46 18V170H374" fill="none" stroke="currentColor" stroke-width="3"/>
+<text x="38" y="175.0" text-anchor="end" font-family="VT323, monospace" font-size="17" fill="currentColor">0</text>
+<text x="38" y="126.3" text-anchor="end" font-family="VT323, monospace" font-size="17" fill="currentColor">6</text>
+<text x="38" y="77.7" text-anchor="end" font-family="VT323, monospace" font-size="17" fill="currentColor">12</text>
+<text x="38" y="29.0" text-anchor="end" font-family="VT323, monospace" font-size="17" fill="currentColor">18</text>
+<text x="46.0" y="192" text-anchor="middle" font-family="VT323, monospace" font-size="17" fill="currentColor">J</text>
+<text x="75.1" y="192" text-anchor="middle" font-family="VT323, monospace" font-size="17" fill="currentColor">F</text>
+<text x="104.2" y="192" text-anchor="middle" font-family="VT323, monospace" font-size="17" fill="currentColor">M</text>
+<text x="133.3" y="192" text-anchor="middle" font-family="VT323, monospace" font-size="17" fill="currentColor">A</text>
+<text x="162.4" y="192" text-anchor="middle" font-family="VT323, monospace" font-size="17" fill="currentColor">M</text>
+<text x="191.5" y="192" text-anchor="middle" font-family="VT323, monospace" font-size="17" fill="currentColor">J</text>
+<text x="220.5" y="192" text-anchor="middle" font-family="VT323, monospace" font-size="17" fill="currentColor">J</text>
+<text x="249.6" y="192" text-anchor="middle" font-family="VT323, monospace" font-size="17" fill="currentColor">A</text>
+<text x="278.7" y="192" text-anchor="middle" font-family="VT323, monospace" font-size="17" fill="currentColor">S</text>
+<text x="307.8" y="192" text-anchor="middle" font-family="VT323, monospace" font-size="17" fill="currentColor">O</text>
+<text x="336.9" y="192" text-anchor="middle" font-family="VT323, monospace" font-size="17" fill="currentColor">N</text>
+<text x="366.0" y="192" text-anchor="middle" font-family="VT323, monospace" font-size="17" fill="currentColor">D</text>
+<polyline points="46.0,68.6 75.1,54.0 104.2,41.0 133.3,48.3 162.4,45.9 191.5,42.7 220.5,39.4 249.6,38.6 278.7,37.0 307.8,36.2 336.9,36.2 366.0,37.0" fill="none" stroke="#ff7b7b" stroke-width="3.5" stroke-linejoin="round"/>
+<polyline points="46.0,32.1 75.1,39.4 104.2,45.1 133.3,48.3 162.4,51.6 191.5,58.1 220.5,68.6 249.6,77.5 278.7,81.6 307.8,87.3 336.9,91.3 366.0,94.6" fill="none" stroke="#1971c2" stroke-width="3.5" stroke-linejoin="round"/>
+<rect x="42.5" y="65.1" width="7" height="7" fill="#ff7b7b" stroke="currentColor" stroke-width="1.5"/>
+<rect x="71.6" y="50.5" width="7" height="7" fill="#ff7b7b" stroke="currentColor" stroke-width="1.5"/>
+<rect x="100.7" y="37.5" width="7" height="7" fill="#ff7b7b" stroke="currentColor" stroke-width="1.5"/>
+<rect x="129.8" y="44.8" width="7" height="7" fill="#ff7b7b" stroke="currentColor" stroke-width="1.5"/>
+<rect x="158.9" y="42.4" width="7" height="7" fill="#ff7b7b" stroke="currentColor" stroke-width="1.5"/>
+<rect x="188.0" y="39.2" width="7" height="7" fill="#ff7b7b" stroke="currentColor" stroke-width="1.5"/>
+<rect x="217.0" y="35.9" width="7" height="7" fill="#ff7b7b" stroke="currentColor" stroke-width="1.5"/>
+<rect x="246.1" y="35.1" width="7" height="7" fill="#ff7b7b" stroke="currentColor" stroke-width="1.5"/>
+<rect x="275.2" y="33.5" width="7" height="7" fill="#ff7b7b" stroke="currentColor" stroke-width="1.5"/>
+<rect x="304.3" y="32.7" width="7" height="7" fill="#ff7b7b" stroke="currentColor" stroke-width="1.5"/>
+<rect x="333.4" y="32.7" width="7" height="7" fill="#ff7b7b" stroke="currentColor" stroke-width="1.5"/>
+<rect x="362.5" y="33.5" width="7" height="7" fill="#ff7b7b" stroke="currentColor" stroke-width="1.5"/>
+<rect x="42.5" y="28.6" width="7" height="7" fill="#8ecae6" stroke="currentColor" stroke-width="1.5"/>
+<rect x="71.6" y="35.9" width="7" height="7" fill="#8ecae6" stroke="currentColor" stroke-width="1.5"/>
+<rect x="100.7" y="41.6" width="7" height="7" fill="#8ecae6" stroke="currentColor" stroke-width="1.5"/>
+<rect x="129.8" y="44.8" width="7" height="7" fill="#8ecae6" stroke="currentColor" stroke-width="1.5"/>
+<rect x="158.9" y="48.1" width="7" height="7" fill="#8ecae6" stroke="currentColor" stroke-width="1.5"/>
+<rect x="188.0" y="54.6" width="7" height="7" fill="#8ecae6" stroke="currentColor" stroke-width="1.5"/>
+<rect x="217.0" y="65.1" width="7" height="7" fill="#8ecae6" stroke="currentColor" stroke-width="1.5"/>
+<rect x="246.1" y="74.0" width="7" height="7" fill="#8ecae6" stroke="currentColor" stroke-width="1.5"/>
+<rect x="275.2" y="78.1" width="7" height="7" fill="#8ecae6" stroke="currentColor" stroke-width="1.5"/>
+<rect x="304.3" y="83.8" width="7" height="7" fill="#8ecae6" stroke="currentColor" stroke-width="1.5"/>
+<rect x="333.4" y="87.8" width="7" height="7" fill="#8ecae6" stroke="currentColor" stroke-width="1.5"/>
+<rect x="362.5" y="91.1" width="7" height="7" fill="#8ecae6" stroke="currentColor" stroke-width="1.5"/>
+<text x="364.0" y="27.0" text-anchor="end" font-family="Fredoka, sans-serif" font-weight="600" font-size="14" fill="currentColor">2003</text>
+<text x="364.0" y="116.6" text-anchor="end" font-family="Fredoka, sans-serif" font-weight="600" font-size="14" fill="currentColor">2004</text>
+</svg>
+              <p><span class="sw hl"></span>2003 <span class="sw" style="background:#1971c2"></span>2004 (sales, $ millions)</p>
+              <div class="ans">
+                <p><strong>Chart.</strong> The lines show the shape in one look: 2003 climbs and then flattens, 2004 falls all year, and the two years do not repeat the same ups and downs.</p>
+              </div>
+            </div>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p><strong>A table is for looking things up. A chart is for seeing a pattern.</strong></p>
+<ul class="bullets"><li>Need the exact figure for March 2004? Use the table.</li><li>Need to know whether sales rise every summer? Use the chart.</li></ul>
+<p><strong>Seasonality</strong> means a pattern that repeats at the same time every year, like ice-cream sales peaking each summer. If both years followed the same wave, you would call it seasonal. Here 2003 rises and levels off while 2004 only falls, so there is no repeating wave.</p>
+<p class="nb"><strong>Links to practice:</strong> Q1 (when do you choose a chart?) and Q2 (when do you <em>not</em> choose a table?). See <a href="#q1">Q1 and Q2</a>.</p>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 19 -->
+      <article class="slide" id="dv-19">
+        <header class="bar">
+          <h3><span class="ico" aria-hidden="true">🧩</span>Match the Message to the Chart</h3>
+          <span class="src">Slides 19 and 25</span>
+        </header>
+        <div class="body">
+          <p class="sec-label">From the slide</p>
+          <p class="lead">Choose the graph type for your message: “If your message stresses… then choose…”</p>
+          <div class="tbl-wrap">
+            <table class="tbl min-lg stack">
+              <thead>
+                <tr><th></th><th>If your message stresses…</th><th>Then choose…</th><th>In plain words</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><svg class="cico" aria-hidden="true"><use href="#ch-pie"/></svg></td><th scope="row">Components of one item</th><td data-label="Then choose…">Pie chart</td><td data-label="In plain words">One whole cut into parts that add up to 100%.</td></tr>
+                <tr><td><svg class="cico" aria-hidden="true"><use href="#ch-stack"/></svg></td><th scope="row">Components of multiple items</th><td data-label="Then choose…">100% column / stacked column chart</td><td data-label="In plain words">Several wholes, each split into the same parts. The parts are stacked.</td></tr>
+                <tr><td><svg class="cico" aria-hidden="true"><use href="#ch-bar"/></svg></td><th scope="row">Item comparison</th><td data-label="Then choose…">Bar chart</td><td data-label="In plain words">Line the items up side by side and compare their sizes.</td></tr>
+                <tr><td><svg class="cico" aria-hidden="true"><use href="#ch-line"/></svg></td><th scope="row">Change over time</th><td data-label="Then choose…">Column / line chart</td><td data-label="In plain words">Time runs left to right. Watch the value rise or fall.</td></tr>
+                <tr><td><svg class="cico" aria-hidden="true"><use href="#ch-hist"/></svg></td><th scope="row">Frequency, distribution</th><td data-label="Then choose…">Histogram</td><td data-label="In plain words">How many values fall in each range. Shows the shape of the data.</td></tr>
+                <tr><td><svg class="cico" aria-hidden="true"><use href="#ch-scatter"/></svg></td><th scope="row">Correlation</th><td data-label="Then choose…">Paired bar, scatter dot</td><td data-label="In plain words">Two measures for each item. Do they move together?</td></tr>
+                <tr><td><svg class="cico" aria-hidden="true"><use href="#ch-box"/></svg></td><th scope="row">Outliers (slide 25)</th><td data-label="Then choose…">Box plot</td><td data-label="In plain words">The box holds the middle half of the values. Dots beyond the whiskers are outliers.</td></tr>
+              </tbody>
+            </table>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>This table is the heart of the week. <strong>Pick the chart by the message, not by what looks nice.</strong> Ask which of these you want the reader to see:</p>
+<ul class="bullets"><li><strong>How is one thing split up?</strong> Pie chart.</li><li><strong>How are several things each split up?</strong> Stacked column chart.</li><li><strong>Which item is bigger?</strong> Bar chart.</li><li><strong>How did it change over time?</strong> Line or column chart.</li><li><strong>How are values spread out?</strong> Histogram.</li><li><strong>Do two measures rise and fall together?</strong> Scatter plot.</li><li><strong>Are there odd values far from the rest?</strong> Box plot.</li></ul>
+<p class="nb"><strong>Memory hook:</strong> stacked means parts piled up, so it shows <em>components</em>. Plain bars stand side by side, so they show <em>comparison</em>. Practice Q6 to Q12 test exactly this. See <a href="#q6">Q6 to Q12</a>.</p>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slides 20-25 -->
+      <article class="slide" id="dv-21">
+        <header class="bar">
+          <h3><span class="ico" aria-hidden="true">🧪</span>Examples on Choice of Form</h3>
+          <span class="src">Slides 20 to 25</span>
+        </header>
+        <div class="body">
+          <p class="sec-label">From the slide</p>
+          <p class="lead">On each slide the <em>title is the message</em> and the chart is chosen to prove it.</p>
+          <ul class="exs">
+            <li>
+              <svg class="cico" aria-hidden="true"><use href="#ch-bar"/></svg>
+              <h4>“Sales of Product A exceed sales of B and C”</h4>
+              <span class="type">Bar chart: item comparison</span>
+              <p>Product A $49 million, Product B $35 million, Product C $27 million.</p>
+            </li>
+            <li>
+              <svg class="cico" aria-hidden="true"><use href="#ch-scatter"/></svg>
+              <h4>“There is no apparent relationship between tenure and sales”</h4>
+              <span class="type">Scatter plot: how items correlate</span>
+              <p>Each dot pairs a tenure with a sales figure (tenure across, sales up). The dots show no trend.</p>
+            </li>
+            <li>
+              <svg class="cico" aria-hidden="true"><use href="#ch-pie"/></svg>
+              <h4>“Competitor D has the smallest share of industry sales”</h4>
+              <span class="type">Pie chart: components of one item</span>
+              <p>A 40%, B 30%, C 20%, D 10%. The shares add up to 100%.</p>
+            </li>
+            <li>
+              <svg class="cico" aria-hidden="true"><use href="#ch-line"/></svg>
+              <h4>“Earnings per share have decreased every year since 2000”</h4>
+              <span class="type">Line chart: change over time</span>
+              <p>$4.90, $4.81, $4.76, $4.22, $3.86 for 2000 to 2004.</p>
+            </li>
+            <li>
+              <svg class="cico" aria-hidden="true"><use href="#ch-box"/></svg>
+              <h4>“There are outliers in the data”</h4>
+              <span class="type">Box plot: outliers</span>
+              <p>A tight box with a few dots far above it.</p>
+            </li>
+          </ul>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>Read each title as a sentence the chart must prove. The key words give away the chart:</p>
+<ul class="bullets"><li><strong>"exceed"</strong> compares items, so use a bar chart.</li><li><strong>"relationship"</strong> asks whether two measures move together, so use a scatter plot.</li><li><strong>"share"</strong> means part of a whole, so use a pie chart.</li><li><strong>"every year since 2000"</strong> is change over time, so use a line chart.</li><li><strong>"outliers"</strong> are odd values, so use a box plot.</li></ul>
+<p class="nb"><strong>Check the pie:</strong> 40 + 30 + 20 + 10 = 100. A pie only makes sense when the parts add up to a whole.</p>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slides 26-27 -->
+      <article class="slide" id="dv-27">
+        <header class="bar">
+          <h3><span class="ico" aria-hidden="true">🎨</span>Step 3: Creating the Design</h3>
+          <span class="src">Slides 26 and 27</span>
+        </header>
+        <div class="body">
+          <p class="sec-label">From the slide</p>
+          <div class="ask">Below are two designs of the column data representation of the AIDS data. Which design leads to a chart that is easier to understand?</div>
+          <div class="versus">
+            <div class="vbox">
+              <span class="verdict bad">Left on the slide: harder</span>
+              <ul class="bullets">
+                <li>3-D columns drawn at an angle</li>
+                <li>No values on the columns</li>
+                <li>The shading adds ink but no information, and the depth makes it hard to line a column up with the axis</li>
+              </ul>
+            </div>
+            <div class="vbox">
+              <span class="verdict good">Right on the slide: easier</span>
+              <ul class="bullets">
+                <li>Flat 2-D columns</li>
+                <li>The value is written on each column</li>
+                <li>Thin axes and no decoration</li>
+              </ul>
+            </div>
+          </div>
+          <div class="ans">
+            <p><strong>The flat chart with value labels</strong> (the right-hand design).</p>
+            <p>3-D effects distort how tall a column looks and make exact values hard to read. Plain columns with labels let the reader see the shape and read the numbers.</p>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>Once the message and form are chosen, <strong>design</strong> is about making the chart quick to read. Both charts show the same data, but the 3-D one makes your brain work harder to decode it.</p>
+<p><strong>Rule of thumb:</strong> if a design choice does not help the reader see the message, remove it.</p>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 28 -->
+      <article class="slide" id="dv-28">
+        <header class="bar">
+          <h3><span class="ico" aria-hidden="true">✅</span>Creating Design: Best Practices</h3>
+          <span class="src">Slide 28</span>
+        </header>
+        <div class="body">
+          <p class="sec-label">From the slide</p>
+          <div class="tbl-wrap">
+            <table class="tbl min">
+              <thead><tr><th>Avoid</th><th>Prefer</th><th>Why</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">3-D effects</th><td>Flat 2-D shapes</td><td>Depth changes how big a bar or slice looks.</td></tr>
+                <tr><th scope="row">Legends</th><td>Labels placed right on the bars or slices</td><td>A legend makes the eye jump back and forth to match colours.</td></tr>
+                <tr><th scope="row">Contrasting borders around objects</th><td>No borders, or very light ones</td><td>Borders are non-data ink.</td></tr>
+                <tr><th scope="row">A chart with no guidance</th><td>Annotations on key changes or specific data points</td><td>They tell the reader where to look.</td></tr>
+              </tbody>
+            </table>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>The slide shows a 3-D pie with a legend next to a flat pie with labels on the slices (Our Company 34, Competitor A 26, Competitor B 12, Competitor C 28). The flat, labelled pie wins on every count:</p>
+<ul class="bullets"><li>No depth to distort the slice sizes.</li><li>The reader reads each number straight off its slice, with no colour lookup.</li><li>Fewer lines and borders, so the data stands out.</li></ul>
+<p class="nb"><strong>Remember the four:</strong> no 3-D, labels instead of legends, no loud borders, add annotations.</p>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 29 -->
+      <article class="slide" id="dv-29">
+        <header class="bar">
+          <h3><span class="ico" aria-hidden="true">🧹</span>Graphs: Best Practices Lead to an Uncluttered Look</h3>
+          <span class="src">Slide 29</span>
+        </header>
+        <div class="body">
+          <p class="sec-label">From the slide</p>
+          <div class="topics cols-2">
+            <div class="topic">
+              <h4>The checklist</h4>
+              <ul class="bullets">
+                <li>Design the graph to support the message; consider using a talking head here, too</li>
+                <li>Use minimal grid lines, ideally none</li>
+                <li>Use thin lines, thin axes, thin bars, thin arrows to show trends</li>
+                <li>Display subtle but visible data point marks, only enough to show the trend</li>
+                <li>Use minimal tick marks to display scale, usually just min/max on the Y axis</li>
+                <li>Label axes; label graphic items</li>
+                <li>Opt for value labels wherever possible; delete some to avoid clutter</li>
+              </ul>
+            </div>
+            <div class="versus">
+              <div class="vbox">
+                <span class="verdict bad">Cluttered (left)</span>
+                <ul class="bullets">
+                  <li>Grid lines at every tick</li>
+                  <li>A legend off to the side</li>
+                  <li>Title only names the chart: “Cumulative unit sales, actual versus plan”</li>
+                </ul>
+              </div>
+              <div class="vbox">
+                <span class="verdict good">Clean (right)</span>
+                <ul class="bullets">
+                  <li>No grid lines; only 0 and 180 on the Y axis</li>
+                  <li>Values written on the points</li>
+                  <li>Title states the message: “Cumulative actual unit sales through July exceeding plan by nearly 30K”</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>A clean chart looks calm: thin lines, almost no grid, a few labels, and a title that <strong>says what to conclude</strong>.</p>
+<ul class="bullets"><li><strong>Title</strong>: write the message, not just the topic.</li><li><strong>Axis</strong>: show only the smallest and largest values.</li><li><strong>Labels</strong>: write values on the data, but not on every single point if it gets crowded.</li></ul>
+<p class="analogy"><strong>Think of it like this:</strong> a tidy desk. You find the one paper you need straight away.</p>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slides 30-31 -->
+      <article class="slide" id="dv-31">
+        <header class="bar">
+          <h3><span class="ico" aria-hidden="true">🖥️</span>Dashboards: What Are They?</h3>
+          <span class="src">Slides 30 and 31</span>
+        </header>
+        <div class="body">
+          <p class="sec-label">From the slide</p>
+          <div class="topics cols-2">
+            <div class="topic">
+              <h4>Definition</h4>
+              <ol class="chain">
+                <li class="key">A visual display</li>
+                <li class="join">of</li>
+                <li class="key">The most important information needed to achieve one or more objectives</li>
+                <li class="join">that has been</li>
+                <li class="key">Consolidated on a single screen</li>
+                <li class="join">so it can be</li>
+                <li class="key">Monitored and understood at a glance</li>
+              </ol>
+            </div>
+            <div class="topic">
+              <h4>Questions on slide 30</h4>
+              <ul class="bullets">
+                <li>What are data dashboards?</li>
+                <li>How do you decide what should go on a dashboard? Domain specific?</li>
+                <li>What are the generic principles?</li>
+                <li>Do only descriptives go on the dashboard?</li>
+              </ul>
+              <div class="ans" data-label="Suggested answers">
+                <ul class="bullets">
+                  <li><strong>What:</strong> one screen showing the key information for your objectives.</li>
+                  <li><strong>What goes on it:</strong> only what you need to meet the objectives, so the choice depends on the domain and the goal.</li>
+                  <li><strong>Generic principles:</strong> single screen, understood at a glance, most important first, details one click away (see the next card).</li>
+                  <li><strong>Only descriptives?</strong> Mostly summaries of what is happening (the slides do not give a rule). Anything that helps monitor the objectives can appear.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>A <strong>dashboard</strong> is the screen of a car or a plane for your work. It does not show everything. It shows the few things you must watch, all in one place, so a quick look tells you whether things are fine.</p>
+<ul class="bullets"><li><strong>Most important information</strong>: only what serves your objectives.</li><li><strong>Single screen</strong>: no scrolling through many pages.</li><li><strong>At a glance</strong>: a few seconds is enough to understand it.</li></ul>
+<p class="nb"><strong>Note:</strong> the suggested answers above are my reading of the definition. The slide only poses the questions.</p>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 32 -->
+      <article class="slide" id="dv-32">
+        <header class="bar">
+          <h3><span class="ico" aria-hidden="true">🔭</span>Basic Dashboard Design Principle</h3>
+          <span class="src">Slide 32</span>
+        </header>
+        <div class="body">
+          <p class="sec-label">From the slide</p>
+          <ol class="steps">
+            <li>
+              <h4>Scan the big picture</h4>
+              <p>The whole dashboard on one screen.</p>
+            </li>
+            <li>
+              <h4>Zoom in on important specifics</h4>
+              <p>Spot the one number or chart that needs attention.</p>
+            </li>
+            <li>
+              <h4>Link to supporting details</h4>
+              <p>Jump to the fuller pages behind it.</p>
+            </li>
+          </ol>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>People use a dashboard in <strong>three moves</strong>: look at everything, zoom in on what looks wrong or important, then open the details behind it.</p>
+<p class="analogy"><strong>Think of it like this:</strong> a map app. You see the whole city, zoom into one street, then tap a shop to read its page.</p>
+<p class="nb"><strong>Coming next:</strong> Tutorial 1.2, Creating a dashboard (named on the last slide of the tutorial deck).</p>
+</div>
+</details>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+
+  <!-- ============ WORLD 2 : Tutorial 1.1 Misleading visuals ============ -->
+  <section class="world w2" id="world-2" data-tab>
+    <nav class="rail" aria-label="Lessons in part 2"><p class="rail-title">Lessons</p><ol><li class="grp">Five tricks</li><li><a href="#tut-02">Misleading Axes</a></li><li><a href="#tut-03">Wrong Data</a></li><li><a href="#tut-04">Inappropriate Chart Type</a></li><li><a href="#tut-05">Incorrect Bar Chart</a></li><li><a href="#tut-06">Misleading 3-D Pie Chart</a></li><li class="grp">Wrap-up</li><li><a href="#tut-summary">Spot the Trick: Quick Checklist</a></li></ol></nav>
+    <header class="world-head" id="tut-01">
+      <div class="world-title">
+        <span class="badge">Part 2</span>
+        <h2>Tutorial 1.1: Misleading Visuals</h2>
+      </div>
+<div class="world-intro">
+<p>A <strong>misleading visual</strong> makes the reader believe something the data does not say. Sometimes it is done on purpose and often it is an accident. This tutorial shows five real examples, and each one breaks a rule from World 1.</p>
+<ul class="bullets"><li>Training your eye to spot these tricks protects you as a reader.</li><li>Avoiding them makes you a trustworthy chart maker (the <strong>integrity</strong> principle).</li></ul>
+</div>
+    </header>
+
+    <div class="grid">
+
+      <!-- Tutorial slide 2 -->
+      <article class="slide" id="tut-02">
+        <header class="bar">
+          <h3><span class="ico" aria-hidden="true">📏</span>Misleading Axes</h3>
+          <span class="src">Tutorial slide 2</span>
+        </header>
+        <div class="body">
+          <p class="sec-label">From the slide</p>
+          <p class="lead">“Over 100 Million People in U.S. Now Receiving Some Form of Federal Welfare”: it appears the welfare problem is spiralling out of control.</p>
+          <p><span class="sticker warn">But note where the y-axis starts!</span></p>
+          <div class="versus">
+            <div class="vbox">
+              <figure class="mchart" style="--h:130px">
+                <figcaption>Axis starts at 94 million <span class="verdict bad">Looks huge</span></figcaption>
+                <div class="plot">
+                  <ul class="yt"><li>108</li><li>101</li><li>94</li></ul>
+                  <div class="area">
+                    <span class="mb" style="--v:.221"><b>97</b><em>Q1<br>09</em></span>
+                    <span class="mb" style="--v:.536"><b>102</b><em>Q4<br>09</em></span>
+                    <span class="mb" style="--v:.75"><b>105</b><em>Q2<br>10</em></span>
+                    <span class="mb" style="--v:.879"><b>106</b><em>Q4<br>10</em></span>
+                    <span class="mb" style="--v:.943"><b>107</b><em>Q2<br>11</em></span>
+                  </div>
+                </div>
+              </figure>
+            </div>
+            <div class="vbox">
+              <figure class="mchart" style="--h:130px">
+                <figcaption>Axis starts at 0 <span class="verdict good">Fair</span></figcaption>
+                <div class="plot">
+                  <ul class="yt"><li>120</li><li>60</li><li>0</li></ul>
+                  <div class="area">
+                    <span class="mb good" style="--v:.809"><b>97</b><em>Q1<br>09</em></span>
+                    <span class="mb good" style="--v:.846"><b>102</b><em>Q4<br>09</em></span>
+                    <span class="mb good" style="--v:.871"><b>105</b><em>Q2<br>10</em></span>
+                    <span class="mb good" style="--v:.886"><b>106</b><em>Q4<br>10</em></span>
+                    <span class="mb good" style="--v:.893"><b>107</b><em>Q2<br>11</em></span>
+                  </div>
+                </div>
+              </figure>
+            </div>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>The slide's chart has its y-axis starting at <strong>94,000,000</strong>, not 0. So the first bar (about 97 million) looks tiny and the last bar (about 107 million) looks about <strong>4 times</strong> taller. The real rise is only about <strong>10%</strong>.</p>
+<p>The mini charts above redraw it. The values are approximate, read off the slide's chart (in millions of people). Same numbers, very different feeling.</p>
+<p class="nb"><strong>Spot it:</strong> check where the axis starts. If a bar chart's axis does not begin at zero, the bar lengths exaggerate the change.</p>
+<p>Source on the slide: statisticshowto.com, "misleading graphs".</p>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Tutorial slide 3 -->
+      <article class="slide" id="tut-03">
+        <header class="bar">
+          <h3><span class="ico" aria-hidden="true">🧮</span>Wrong Data</h3>
+          <span class="src">Tutorial slide 3</span>
+        </header>
+        <div class="body">
+          <p class="sec-label">From the slide</p>
+          <p class="lead">“The weights of the categories do not add up.”</p>
+          <p>A news channel's pie chart on the 2012 presidential run showed these three slices:</p>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Candidate</th><th class="num">Share shown</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Palin</th><td class="num">70%</td></tr>
+                <tr><th scope="row">Huckabee</th><td class="num">63%</td></tr>
+                <tr><th scope="row">Romney</th><td class="num">60%</td></tr>
+              </tbody>
+              <tfoot><tr><th scope="row">Total</th><td class="num">193%</td></tr></tfoot>
+            </table>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>A pie chart shows <strong>parts of one whole</strong>, so the slices must add up to <strong>100%</strong>. Here they add up to <strong>193%</strong>, so the pie cannot be right.</p>
+<p>A common cause is that the answers overlap, for example people were allowed to pick more than one candidate. Each percentage is then a separate question and does not belong in one pie.</p>
+<p class="nb"><strong>Fix:</strong> if the answers can overlap, show one bar per candidate. Bars do not need to add up to 100%.</p>
+<p>Source on the slide: flowingdata.com, "Fox News makes the best pie chart ever".</p>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Tutorial slide 4 -->
+      <article class="slide" id="tut-04">
+        <header class="bar">
+          <h3><span class="ico" aria-hidden="true">🧱</span>Inappropriate Chart Type</h3>
+          <span class="src">Tutorial slide 4</span>
+        </header>
+        <div class="body">
+          <p class="sec-label">From the slide</p>
+          <p class="lead">“It is difficult to compare the two datasets using the stacked bar chart. A bar chart with two series of columns would be better.”</p>
+          <div class="versus">
+            <div class="vbox">
+              <svg class="cico" aria-hidden="true"><use href="#ch-stack"/></svg>
+              <p><strong>Stacked bars</strong></p>
+              <span class="verdict bad">Hard to compare</span>
+            </div>
+            <div class="vbox">
+              <svg class="cico" aria-hidden="true"><use href="#ch-bar"/></svg>
+              <p><strong>Side-by-side bars</strong></p>
+              <span class="verdict good">Easy to compare</span>
+            </div>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>The slide shows Covid-19 cases for each zone of a city on two dates (July 31 and August 6), drawn as <strong>stacked</strong> bars. A stacked bar adds the second date on top of the first, so only the bottom piece starts at the same line. You cannot compare the second piece fairly.</p>
+<p>For <strong>comparing two sets</strong>, draw two bars side by side for each zone, both starting at zero.</p>
+<p class="nb"><strong>Links to practice:</strong> Q8 and Q9. Stacked columns show <em>components</em> of multiple items. Plain bars show <em>comparison</em> between items. See <a href="#q6">Q6 to Q12</a>.</p>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Tutorial slide 5 -->
+      <article class="slide" id="tut-05">
+        <header class="bar">
+          <h3><span class="ico" aria-hidden="true">⛽</span>Incorrect Bar Chart</h3>
+          <span class="src">Tutorial slide 5</span>
+        </header>
+        <div class="body">
+          <p class="sec-label">From the slide</p>
+          <p class="lead">An arrow points downward to the Sept data point, yet the price actually went up. Only the <em>percentage increase</em> went down.</p>
+          <div class="tbl-wrap">
+            <table class="tbl tight">
+              <thead><tr><th>Date</th><th class="num">Petrol, Rs per litre</th><th class="num">Change from before</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">16 May 2004</th><td class="num">33.71</td><td class="num">-</td></tr>
+                <tr><th scope="row">16 May 2009</th><td class="num">40.62</td><td class="num">+20.5%</td></tr>
+                <tr><th scope="row">16 May 2014</th><td class="num">71.41</td><td class="num">+75.8%</td></tr>
+                <tr class="hl"><th scope="row">10 Sept 2018</th><td class="num">80.73</td><td class="num">+13.1%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <figure class="mchart" style="--h:120px">
+            <figcaption>The accurate chart: plain bars from zero <span class="verdict good">Honest</span></figcaption>
+            <div class="plot">
+              <ul class="yt"><li>90</li><li>60</li><li>30</li><li>0</li></ul>
+              <div class="area">
+                <span class="mb good" style="--v:.375"><b>33.71</b><em>2004</em></span>
+                <span class="mb good" style="--v:.451"><b>40.62</b><em>2009</em></span>
+                <span class="mb good" style="--v:.793"><b>71.41</b><em>2014</em></span>
+                <span class="mb good" style="--v:.897"><b>80.73</b><em>2018</em></span>
+              </div>
+            </div>
+          </figure>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>Prices went <strong>up</strong> every time: 33.71, then 40.62, then 71.41, then 80.73. But the slide's chart draws a big arrow <strong>pointing down</strong> to the last bar with "13%". That arrow shows that the rise slowed (from +75.8% to +13.1%), not that the price fell. A reader sees a falling arrow and thinks the price dropped.</p>
+<p>The slide's last bar is also drawn shorter than the 2014 bar even though 80.73 is more than 71.41, so the bar heights do not match the numbers.</p>
+<p class="nb"><strong>Spot it:</strong> do the arrows, colours and bar heights all agree with the numbers? If a mark says one thing and the number says another, the chart is misleading. Show the values and let plain bars do the talking.</p>
+<p>Check: (40.62 - 33.71) / 33.71 = 20.5%, (71.41 - 40.62) / 40.62 = 75.8%, (80.73 - 71.41) / 71.41 = 13.1%.</p>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Tutorial slides 6-7 -->
+      <article class="slide" id="tut-06">
+        <header class="bar">
+          <h3><span class="ico" aria-hidden="true">🥧</span>Misleading 3-D Pie Chart</h3>
+          <span class="src">Tutorial slides 6 and 7</span>
+        </header>
+        <div class="body">
+          <p class="sec-label">From the slide</p>
+          <div class="topics cols-2">
+            <div class="topic">
+              <h4>What the slides say</h4>
+              <ul class="bullets">
+                <li>The slices closer to you appear larger than those further away</li>
+                <li>Compare Item A and Item C in both graphs</li>
+                <li>A and B look quite similar in the 3-D graph!</li>
+              </ul>
+            </div>
+            <div class="topic">
+              <h4>Why it happens (from the slide notes)</h4>
+              <ul class="bullets">
+                <li>The eye is sensitive to the <strong>area</strong> a colour occupies</li>
+                <li>The sides of a 3-D slice use the same colour as the top, so the front slices paint extra area</li>
+                <li>Pulled-out (exploded) wedges are worse, and perspective exaggerates the front further</li>
+                <li>Our eyes are better at <strong>position</strong>, which is why bar charts are easier to read</li>
+              </ul>
+            </div>
+          </div>
+          <div class="versus">
+            <div class="vbox">
+              <div style="display:flex;justify-content:center;padding:6px 0">
+                <div class="pie" style="background:conic-gradient(var(--coral) 0 25%, var(--butter) 0 50%, var(--mint) 0 75%, var(--sky-2) 0 100%)"></div>
+              </div>
+              <p><span class="verdict good">Flat</span> Four equal slices of 25% each. You can see that they are equal.</p>
+            </div>
+            <div class="vbox">
+              <div style="display:flex;justify-content:center;padding:18px 0">
+                <div class="pie tilt" style="background:conic-gradient(var(--coral) 0 25%, var(--butter) 0 50%, var(--mint) 0 75%, var(--sky-2) 0 100%)"></div>
+              </div>
+              <p><span class="verdict bad">Tilted</span> The same four 25% slices. The ones nearer you now look bigger.</p>
+            </div>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>The two pies above hold <strong>exactly the same numbers</strong>. When the pie is tilted to look 3-D, the nearer slices look larger and the far ones look smaller. That is a trick of perspective, not a fact in the data.</p>
+<p>That is why the slides ask you to compare Item A with Item C in both versions, and why A and B look alike in the 3-D picture even though they are different.</p>
+<p class="nb"><strong>Rule:</strong> avoid 3-D charts. Use a flat chart, and where you can, use bars. Our eyes judge bar length (position) better than slice area.</p>
+<p>Sources on the slides: noigroup.com and Korean Journal of Anesthesiology 70(3), 2017.</p>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Summary -->
+      <article class="slide" id="tut-summary">
+        <header class="bar">
+          <h3><span class="ico" aria-hidden="true">🕵️</span>Spot the Trick: Quick Checklist</h3>
+          <span class="src">Summary</span>
+        </header>
+        <div class="body">
+          <p class="sec-label">Checklist</p>
+          <div class="tbl-wrap">
+            <table class="tbl min-lg stack">
+              <thead><tr><th>Trick</th><th>How to spot it</th><th>Fix</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Misleading axis</th><td data-label="How to spot it">The bars do not start at zero, so small changes look huge.</td><td data-label="Fix">Start bar charts at zero and show the full scale.</td></tr>
+                <tr><th scope="row">Wrong data</th><td data-label="How to spot it">The slices of a pie do not add up to 100%.</td><td data-label="Fix">Check totals. If answers overlap, use one bar per answer.</td></tr>
+                <tr><th scope="row">Inappropriate chart type</th><td data-label="How to spot it">Stacked bars used to compare two data sets.</td><td data-label="Fix">Use side-by-side bars for comparison.</td></tr>
+                <tr><th scope="row">Marks that disagree with numbers</th><td data-label="How to spot it">An arrow, colour or bar height says one thing and the number says another.</td><td data-label="Fix">Use plain bars with labelled values.</td></tr>
+                <tr><th scope="row">3-D effects</th><td data-label="How to spot it">Nearer slices or bars look bigger than they are.</td><td data-label="Fix">Use a flat 2-D chart.</td></tr>
+              </tbody>
+            </table>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>Before you trust (or share) a chart, run these five checks: <strong>axis, totals, chart type, marks versus numbers, 3-D</strong>.</p>
+<p class="analogy"><strong>Think of it like this:</strong> checking a shop's bill. Look at the total, then check each line item.</p>
+<p class="nb"><strong>Up next:</strong> Tutorial 1.2, Creating a dashboard (named on the last slide of this deck).</p>
+</div>
+</details>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+
+  <!-- ============ PART 3 : Practice quiz ============ -->
+  <section class="world w3" id="world-3" data-tab>
+    <header class="world-head" id="pa-01">
+      <div class="world-title">
+        <span class="badge">Part 3</span>
+        <h2>Practice Quiz</h2>
+      </div>
+      <div class="world-intro">
+        <p>This is <strong>Practice Assignment 1</strong> as a quiz: 15 questions, 1 mark each, not graded (due 31 Dec 2026, 11:59 PM IST). Choose your answer, press <strong>Check answer</strong>, then read how to work it out.</p>
+        <p>It tests three skills: deciding between a table and a chart, naming the type of data, and matching a chart to a message. The cheat sheet under the quiz holds the three small tables you need.</p>
+      </div>
+    </header>
+
+    <div class="grid">
+
+      <article class="slide quiz" id="quiz">
+        <header class="bar">
+          <h3><span class="ico" aria-hidden="true">✏️</span>Practice Quiz</h3>
+          <span class="src">Practice Assignment 1</span>
+        </header>
+        <div class="body">
+          <div class="qz" id="quiz-root">
+            <noscript><p class="qz-nojs">The quiz needs JavaScript. Turn it on to answer the 15 questions here, or read the cheat sheet below.</p></noscript>
+          </div>
+        </div>
+      </article>
+
+      <!-- Cheat sheet -->
+      <article class="slide" id="pa-cheat">
+        <header class="bar">
+          <h3><span class="ico" aria-hidden="true">📋</span>Cheat Sheet Before You Start</h3>
+          <span class="src">Summary</span>
+        </header>
+        <div class="body">
+          <div class="topics cols-3">
+            <div class="topic">
+              <h4>Table or chart?</h4>
+              <ul class="bullets">
+                <li><strong>Table:</strong> the complete data set; one item in context; very wide range of data; how numbers were worked out</li>
+                <li><strong>Chart:</strong> change over time; distribution and patterns; a slice of the information</li>
+              </ul>
+            </div>
+            <div class="topic">
+              <h4>Type of data</h4>
+              <ul class="bullets">
+                <li><strong>Categorical:</strong> names or groups</li>
+                <li><strong>Discrete:</strong> counted items</li>
+                <li><strong>Continuous:</strong> measured values</li>
+              </ul>
+            </div>
+            <div class="topic">
+              <h4>Which chart?</h4>
+              <ul class="bullets">
+                <li><strong>Pie:</strong> parts of one item</li>
+                <li><strong>Stacked column:</strong> parts of several items</li>
+                <li><strong>Bar:</strong> compare items</li>
+                <li><strong>Line:</strong> trend over time</li>
+                <li><strong>Histogram:</strong> frequency</li>
+                <li><strong>Scatter:</strong> correlation</li>
+                <li><strong>Box plot:</strong> outliers</li>
+              </ul>
+            </div>
+          </div>
+<div class="world-intro">
+<p>You do not need to memorise 15 answers. Learn <strong>three small tables</strong> and you can work out every question.</p>
+<p class="nb"><strong>Method for any question:</strong> 1) say in your own words what the question asks, 2) find the matching row in the cheat sheet, 3) check each option against it, and cross out the ones that clearly do not fit.</p>
+<p>Some questions let you select <strong>more than one</strong> option (Q1, Q3, Q4, Q5 and Q15), so check every option, not just the first one that looks right.</p>
+</div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <p class="clear">Level complete</p>
+  <a class="btn go" href="#top">Back to top</a>
+  <a class="btn go" href="index.html">Back to hub</a>
+</footer>
+
+<script src="ba-week1.js" defer></script>
+</body>
+</html>
