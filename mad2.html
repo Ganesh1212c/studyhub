@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Modern Application Development - II</title>
+  <meta name="description" content="Modern Application Development - II: a review of MAD-I, then JavaScript history, syntax and the DOM API.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="progress" aria-hidden="true"></div>
+
+<!-- Pixel sprites reused across the page -->
+<svg class="sprites" aria-hidden="true" focusable="false">
+  <symbol id="cloud" viewBox="0 0 16 4">
+    <path fill="#ffffff" d="M3 0h3v1H3z M8 0h4v1H8z M2 1h11v1H2z M1 2h14v1H1z M0 3h16v1H0z"/>
+    <path fill="#d4ecfb" d="M0 3h16v1H0z"/>
+  </symbol>
+  <symbol id="star" viewBox="0 0 5 5">
+    <path fill="#ffc233" d="M2 0h1v5H2z M0 2h5v1H0z"/>
+    <path fill="#fff6c8" d="M2 2h1v1H2z"/>
+  </symbol>
+</svg>
+
+<div class="sky" aria-hidden="true">
+  <svg class="cloud c1"><use href="#cloud"/></svg>
+  <svg class="cloud c2"><use href="#cloud"/></svg>
+  <svg class="cloud c3"><use href="#cloud"/></svg>
+  <svg class="cloud c4"><use href="#cloud"/></svg>
+</div>
+
+<header class="hud">
+  <div class="hud-inner">
+    <a class="brand" href="#top">
+      <svg class="brand-star" aria-hidden="true"><use href="#star"/></svg>
+      <abbr title="Modern Application Development - II">MAD-II</abbr>
+    </a>
+    <nav aria-label="Worlds">
+      <a class="hub-link" href="index.html">&lt; Hub</a>
+      <a href="#world-1">1 Review</a>
+      <a href="#world-2">2 JavaScript</a>
+      <a href="#world-3">3 Syntax</a>
+      <a href="#world-4">4 DOM API</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ HERO (slide 1) ============ -->
+  <section class="hero" id="top">
+    <svg class="star st1" aria-hidden="true"><use href="#star"/></svg>
+    <svg class="star st2" aria-hidden="true"><use href="#star"/></svg>
+    <svg class="star st3" aria-hidden="true"><use href="#star"/></svg>
+
+    <div class="hero-text">
+      <h1 class="title">
+        <span style="--i:0;--c:#ff7b7b">Modern</span>
+        <span style="--i:1;--c:#ffd23f">Application</span>
+        <span style="--i:2;--c:#7fe3b0">Development</span>
+        <span style="--i:3;--c:#8ecae6">- II</span>
+      </h1>
+      <p><a class="btn go" href="#world-1">Start reading</a></p>
+      <ul class="world-links">
+        <li><a href="#world-1">World 1: Review &amp; Roadmap</a></li>
+        <li><a href="#world-2">World 2: JavaScript</a></li>
+        <li><a href="#world-3">World 3: JavaScript Syntax</a></li>
+        <li><a href="#world-4">World 4: DOM API</a></li>
+      </ul>
+    </div>
+
+    <div class="mascot">
+      <p class="bubble">Hello world</p>
+      <svg class="robot" viewBox="0 0 12 12" role="img" aria-label="A friendly pixel robot" shape-rendering="crispEdges">
+        <rect x="5" y="0" width="2" height="1" fill="#ff7b7b"/>
+        <rect x="2" y="3" width="8" height="7" fill="#8ecae6"/>
+        <path fill="#2b2d42" d="M5 1h2v1H5z M2 2h8v1H2z M1 3h1v7H1z M10 3h1v7h-1z M2 10h8v1H2z M3 4h2v2H3z M7 4h2v2H7z M4 8h1v1H4z M7 8h1v1H7z M5 9h2v1H5z M3 11h2v1H3z M7 11h2v1H7z"/>
+        <path fill="#ffffff" d="M3 4h1v1H3z M7 4h1v1H7z"/>
+        <path fill="#ffb3d1" d="M3 7h1v1H3z M8 7h1v1H8z"/>
+      </svg>
+    </div>
+  </section>
+
+
+  <!-- ============ WORLD 1 : slides 2 to 4 ============ -->
+  <section class="world w1" id="world-1">
+    <header class="world-head">
+      <div class="world-title">
+        <span class="badge">World 1</span>
+        <h2>Review &amp; Roadmap</h2>
+      </div>
+    </header>
+
+    <div class="grid">
+
+      <!-- Slide 2 -->
+      <article class="slide s-12" id="slide-02">
+        <header class="bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3><span class="ico" aria-hidden="true">🔁</span>Review of MAD-I</h3>
+          <span class="no" title="Slide 2">02</span>
+        </header>
+        <div class="body">
+          <div class="topics cols-3">
+            <div class="topic">
+              <h4>What is an app (at least in our context):</h4>
+              <ul class="bullets">
+                <li>An application or program used for interacting with a computing system</li>
+                <li>Allow the user to perform some tasks useful to them</li>
+              </ul>
+            </div>
+            <div class="topic">
+              <h4>Components:</h4>
+              <ul class="bullets">
+                <li><strong>Backend:</strong> Store data, processing logic, relation between data elements etc.</li>
+                <li><strong>Frontend:</strong> User-facing views, abstract for machine interaction</li>
+                <li>Naturally implies a client-server or request-response type of architecture</li>
+              </ul>
+            </div>
+            <div class="topic">
+              <h4>Why Web:</h4>
+              <ul class="bullets">
+                <li>Close to universal platform with clear client-server architecture</li>
+                <li>Low barrier to entry - trivial to implement simple pages and interaction</li>
+                <li>High degree of flexibility - possible to implement highly complex systems</li>
+              </ul>
+            </div>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>An <strong>app</strong> is a tool on a computer that helps you do something useful, like ordering food or checking your marks.</p>
+<p>Every app has two halves that talk to each other:</p>
+<ul class="bullets"><li><strong>Frontend</strong>: the part you see and touch (pages, buttons, forms).</li><li><strong>Backend</strong>: the hidden part that stores data and decides what to do with it.</li></ul>
+<p>They talk in a simple pattern: the frontend <strong>asks</strong> (a request) and the backend <strong>answers</strong> (a response). This is called a client-server design.</p>
+<p><strong>Why the web?</strong> Every phone and laptop already has a browser. A simple page takes only a few lines to write. And the same idea can grow into very large systems.</p>
+<p class="analogy"><strong>Think of it like this:</strong> a restaurant. The menu and the waiter are the frontend. The kitchen is the backend. You never enter the kitchen; you send an order and food comes back.</p>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 3 -->
+      <article class="slide s-12" id="slide-03">
+        <header class="bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3><span class="ico" aria-hidden="true">🧱</span>Review of the Web Application Development Model</h3>
+          <span class="no" title="Slide 3">03</span>
+        </header>
+        <div class="body">
+          <div class="topics cols-2">
+            <div class="topic">
+              <h4>Presentation</h4>
+              <p><abbr title="HyperText Markup Language">HTML</abbr> for semantic content, <abbr title="Cascading Style Sheets">CSS</abbr> for styling</p>
+            </div>
+            <div class="topic">
+              <h4>Logic</h4>
+              <p>Backend logic highly flexible - we used Python with Flask</p>
+            </div>
+          </div>
+          <div class="topics cols-3">
+            <div class="topic">
+              <h4>Application architecture:</h4>
+              <ul class="bullets">
+                <li>Model - View - Controller. Good compromise between understandability and flexibility</li>
+              </ul>
+            </div>
+            <div class="topic">
+              <h4>System architecture:</h4>
+              <ul class="bullets">
+                <li><abbr title="Representational State Transfer">REST</abbr> principles + sessions - how to build stateful applications over stateless protocols</li>
+                <li><abbr title="Application Programming Interfaces">APIs</abbr>: separate data from view</li>
+                <li>RESTful? APIs - useful for basic understanding, but not strict adherence to REST</li>
+              </ul>
+            </div>
+            <div class="topic">
+              <h4>Others:</h4>
+              <ul class="bullets">
+                <li>Security, Validation, Logins and <abbr title="Role-Based Access Control">RBAC</abbr>, database and frontend choices etc.</li>
+              </ul>
+            </div>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>A web app is built from a few kinds of work:</p>
+<ul class="bullets"><li><strong>Presentation</strong>: HyperText Markup Language (HTML) says <strong>what</strong> is on the page (heading, button, list). Cascading Style Sheets (CSS) says <strong>how it looks</strong> (colours, spacing).</li><li><strong>Logic</strong>: the backend code that decides what happens. We used Python with a tool called Flask.</li><li><strong>Model - View - Controller</strong>: split the app into three jobs. The <strong>model</strong> holds data and rules. The <strong>view</strong> is what the user sees. The <strong>controller</strong> receives a request, asks the model, and picks the view.</li></ul>
+<p><strong>System architecture</strong> is about how the pieces talk. Web servers do not remember you between requests (this is called <strong>stateless</strong>). To make apps feel continuous we use <strong>sessions</strong>: the browser keeps a small ID, and the server uses it to recognise you again. That is how you stay logged in.</p>
+<p>Representational State Transfer (REST) is a set of design ideas for doing this neatly. An Application Programming Interface (API) sends only data, not whole pages, so the frontend can show it any way it likes. "RESTful?" with a question mark means we followed the ideas loosely, not perfectly.</p>
+<p><strong>Others</strong>: real apps also need security, validation (checking what users type), and logins with Role-Based Access Control (a student and an admin are allowed to do different things).</p>
+<p class="analogy"><strong>Think of it like this:</strong> a theatre. The controller is the stage manager, the model is the script, and the view is what the audience sees.</p>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 4 -->
+      <article class="slide s-12" id="slide-04">
+        <header class="bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3><span class="ico" aria-hidden="true">🚀</span>Moving Forward</h3>
+          <span class="no" title="Slide 4">04</span>
+        </header>
+        <div class="body">
+          <div class="topics cols-2">
+            <div class="topic">
+              <h4>Advanced Frontend Development</h4>
+              <ul class="bullets">
+                <li>Exploring JavaScript and how to use it</li>
+                <li>JavaScript, APIs, Markup - the JAMStack</li>
+                <li>VueJS as a candidate frontend framework</li>
+              </ul>
+            </div>
+            <div class="topic">
+              <h4>Other topics of interest</h4>
+              <ul class="bullets">
+                <li>Asynchronous messaging, Email</li>
+                <li>Mobile / Standalone apps, <abbr title="Progressive Web App">PWA</abbr>/<abbr title="Single-Page Application">SPA</abbr></li>
+                <li>Performance measurement, benchmarking, optimization</li>
+                <li>Alternatives to REST</li>
+                <li>etc.</li>
+              </ul>
+            </div>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>This slide is the road map for what comes next.</p>
+<ul class="bullets"><li><strong>JavaScript</strong> is the language that runs inside the browser and makes pages react to the user.</li><li><strong>JAMStack</strong> means: build the frontend with <strong>J</strong>avaScript, get data from servers through <strong>A</strong>PIs, and use ready-made <strong>M</strong>arkup (HTML pages).</li><li><strong>VueJS</strong> is a framework: a ready-made toolkit that helps you build the frontend faster.</li><li><strong>Asynchronous messaging</strong> means doing slow jobs in the background (like sending an email) and telling the user later.</li><li>A <strong>Progressive Web App (PWA)</strong> is a website that can be installed and behave like an app. A <strong>Single-Page Application (SPA)</strong> loads once and then updates itself instead of loading new pages.</li><li>Later topics: measuring how fast an app is, and other ways (besides REST) for the frontend and backend to talk.</li></ul>
+</div>
+</details>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+
+  <!-- ============ WORLD 2 : slides 5 to 14 ============ -->
+  <section class="world w2" id="world-2">
+    <header class="world-head" id="slide-05">
+      <div class="world-title">
+        <span class="badge">World 2</span>
+        <h2>JavaScript</h2>
+        <span class="no" title="Slide 5">05</span>
+      </div>
+      <ol class="path">
+        <li><span>A little history</span></li>
+        <li><span>Implications of origins</span></li>
+        <li>
+          <span>Writing and Running code</span>
+          <ul class="mini"><li>Terminal</li><li><abbr title="Document Object Model">DOM</abbr></li></ul>
+        </li>
+        <li><span>References</span></li>
+      </ol>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>JavaScript is the programming language of the web browser. This world answers four questions:</p>
+<ul class="bullets"><li>Where did it come from, and why is it called JavaScript?</li><li>Why does it behave in some odd ways?</li><li>How do you run it: in a terminal, or inside a page through the Document Object Model (DOM)?</li><li>Where can you learn more?</li></ul>
+</div>
+</details>
+    </header>
+
+    <div class="grid">
+
+      <!-- Slide 6 -->
+      <article class="slide s-6" id="slide-06">
+        <header class="bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3><span class="ico" aria-hidden="true">🕰️</span>Origins</h3>
+          <span class="no" title="Slide 6">06</span>
+        </header>
+        <div class="body">
+          <ul class="bullets">
+            <li>Originally created in <mark>1995</mark> as scripting language for Netscape Navigator</li>
+            <li>Intended as “glue” language
+              <ul>
+                <li>Stick modules from other languages together</li>
+                <li>Not really meant for much code</li>
+              </ul>
+            </li>
+            <li>Primarily meant to assist “applets” in Java - hence JavaScript
+              <ul>
+                <li>Trademark issues, name changes, …</li>
+              </ul>
+            </li>
+            <li>Issues:
+              <ul>
+                <li><span class="sticker warn">Slow</span></li>
+                <li><span class="sticker warn">Limited capability</span></li>
+              </ul>
+            </li>
+          </ul>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>JavaScript was born in <strong>1995</strong> inside the Netscape Navigator browser. It was made quickly as a small <strong>glue</strong> language: short scripts that connect pieces written in other languages.</p>
+<p>Its name comes from <strong>Java</strong>, a very popular language at the time. Java programs called applets (small programs inside a web page) ran in browsers, and JavaScript was meant to help them. They are two different languages, though.</p>
+<p>Early JavaScript was <strong>slow</strong> and could only do <strong>limited</strong> things, so nobody expected much code to be written in it.</p>
+<p class="analogy"><strong>Think of it like this:</strong> glue in a craft box. It is not the main material; it just holds the other pieces together.</p>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 7 -->
+      <article class="slide s-6" id="slide-07">
+        <header class="bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3><span class="ico" aria-hidden="true">⚡</span>Power</h3>
+          <span class="no" title="Slide 7">07</span>
+        </header>
+        <div class="body">
+          <ul class="bullets">
+            <li>Glue was useful, but…</li>
+            <li>Then Google Maps, Google Suggest etc. (~ <mark>2005</mark>)
+              <ul>
+                <li>Pan around map, zoom in/out seamlessly - fluid user interface:</li>
+                <li><span class="sticker tip">Load only what is needed!</span></li>
+              </ul>
+            </li>
+            <li>Described and Named Ajax - Garrett <mark>2005</mark>
+              <ul>
+                <li>Asynchronous Javascript and XML</li>
+              </ul>
+            </li>
+            <li>Allowed true “web applications” that behave like desktop applications</li>
+            <li>Evolved considerably since then
+              <ul>
+                <li>Much more on this approach moving forward</li>
+              </ul>
+            </li>
+          </ul>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>Around <strong>2005</strong>, Google Maps and Google Suggest showed something new. You could drag and zoom a map, or see suggestions while you typed, <strong>without the whole page reloading</strong>.</p>
+<p>The trick: JavaScript quietly asks the server for just the small piece it needs, in the background, and updates only that part of the page. Jesse James Garrett named this <strong>Ajax</strong> (Asynchronous JavaScript and XML) in 2005.</p>
+<p><strong>Asynchronous</strong> means the page does not freeze while it waits. Extensible Markup Language (XML) was the data format back then. Today most apps use a lighter format called JavaScript Object Notation (JSON), but the idea is the same.</p>
+<p>The result: websites started to feel like desktop apps.</p>
+<figure class="code" data-lang="js"><figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>the idea today, with fetch</figcaption><pre><code><span class="c">// "/api/marks" is just an example address</span>
+fetch(<span class="s">"/api/marks"</span>)
+  .then(response =&gt; response.json())
+  .then(data =&gt; console.log(data));
+<span class="c">// the page keeps working while we wait</span></code></pre></figure>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 8 -->
+      <article class="slide s-6" id="slide-08">
+        <header class="bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3><span class="ico" aria-hidden="true">📜</span>Standardization</h3>
+          <span class="no" title="Slide 8">08</span>
+        </header>
+        <div class="body">
+          <ul class="bullets">
+            <li>Move beyond Netscape needed</li>
+            <li>ECMA (European Computer Manufacturers Association) - standard 262</li>
+            <li>Subsequently called ECMAScript
+              <ul>
+                <li>Avoid trademark issues with Java</li>
+              </ul>
+            </li>
+            <li>In practice:
+              <ul>
+                <li>Language standard called ECMAScript (versions)</li>
+                <li>Implementation and use: JavaScript</li>
+              </ul>
+            </li>
+            <li>Significant changes in <abbr title="ECMAScript 2015">ES6</abbr> - <mark>2015</mark>
+              <ul>
+                <li>Yearly releases since then</li>
+                <li>“Feature readiness” oriented approach</li>
+              </ul>
+            </li>
+          </ul>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>If every browser maker invents its own version of a language, the same page behaves differently everywhere. So the language needed a shared rule book.</p>
+<ul class="bullets"><li><strong>ECMA</strong> (European Computer Manufacturers Association) is a standards organisation. Its rule book number 262 is called <strong>ECMAScript</strong>. They avoided the name JavaScript because of trademark issues with Java.</li><li><strong>ECMAScript</strong> is the rule book. <strong>JavaScript</strong> is what you actually use. Like a recipe (the rule book) and the dish (the real thing).</li><li><strong>ES6</strong> (ECMAScript 2015) was a big upgrade. It added classes, modules, <code>let</code>, <code>const</code> and arrow functions. Since then there is one smaller update every year.</li><li><strong>Feature readiness</strong> means a new feature is added as soon as it is ready, instead of waiting for one giant release.</li></ul>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 9 -->
+      <article class="slide s-6" id="slide-09">
+        <header class="bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3><span class="ico" aria-hidden="true">🧭</span>What version to use?</h3>
+          <span class="no" title="Slide 9">09</span>
+        </header>
+        <div class="body">
+          <ul class="bullets">
+            <li>ES6 has most features of modern languages (modules, scoping, class etc.)</li>
+            <li>Some older browsers may not support all of this</li>
+          </ul>
+          <div class="topic">
+            <h4>Possible approaches:</h4>
+            <ul class="bullets">
+              <li>Ignore old browsers and ask user to upgrade</li>
+              <li>Package browser along with application - useful for limited cases, like VSCode (Electron apps)</li>
+              <li><strong>Polyfills:</strong> include libraries that emulate newer functionality for older browsers</li>
+              <li><strong>Compilers:</strong> BabelJS - convert new code to older compatible versions</li>
+            </ul>
+          </div>
+          <div class="topic">
+            <h4>Backend</h4>
+            <ul class="bullets">
+              <li>Node.js, Deno: directly use JS as a scripting language like Python</li>
+            </ul>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>Newer JavaScript has better features, but <strong>older browsers may not understand them</strong>. You have four choices:</p>
+<ul class="bullets"><li><strong>Ignore old browsers</strong>: ask users to upgrade.</li><li><strong>Ship your own browser</strong> with the app. VSCode does this using Electron, so it always knows which browser version it has.</li><li><strong>Polyfill</strong>: a helper script that adds a missing feature to an old browser. Like a patch.</li><li><strong>Compiler (BabelJS)</strong>: translates new code into older code. Like translating modern English into older English.</li></ul>
+<p>On the <strong>backend</strong>, Node.js and Deno let you run JavaScript outside the browser, just like running a Python script.</p>
+<figure class="code" data-lang="js"><figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>what a compiler like Babel does</figcaption><pre><code><span class="c">// What you write (new style)</span>
+<span class="k">const</span> add = (x, y) =&gt; x + y;
+
+<span class="c">// What Babel can turn it into (older style, works in old browsers)</span>
+<span class="c">// var add = function (x, y) { return x + y; };</span></code></pre></figure>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 10 -->
+      <article class="slide s-12" id="slide-10">
+        <header class="bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3><span class="ico" aria-hidden="true">🧬</span>Implications of JS Origins</h3>
+          <span class="no" title="Slide 10">10</span>
+        </header>
+        <div class="body">
+          <div class="topics cols-3">
+            <div class="topic">
+              <p class="lead">Ease of use given priority over performance (to start with)</p>
+            </div>
+            <div class="topic">
+              <p class="lead">Highly tolerant of errors - fail silently</p>
+              <ul class="bullets">
+                <li><span class="sticker warn">Debugging difficult!</span></li>
+                <li>Strict mode: <code>"use strict";</code></li>
+              </ul>
+            </div>
+            <div class="topic">
+              <p class="lead">Ambiguous syntax variants</p>
+              <ul class="bullets">
+                <li>Automatic semicolon insertion</li>
+                <li>Object literals vs Code blocks <code>{}</code></li>
+                <li>Function: statement or expression? Impacts parsing</li>
+              </ul>
+            </div>
+            <div class="topic">
+              <p class="lead">Limited <abbr title="Input/Output">IO</abbr> support: errors “logged” to “console”</p>
+            </div>
+            <div class="topic">
+              <p class="lead">Closely integrates with presentation layer: DOM APIs</p>
+            </div>
+            <div class="topic">
+              <p class="lead">Asynchronous processing and the Event Loop - very powerful!</p>
+            </div>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>JavaScript was created fast, with the goal that <strong>beginners could use it easily</strong>. That choice explains many of its quirks:</p>
+<ul class="bullets"><li><strong>Forgiving</strong>: many mistakes do not crash the program. It silently keeps going, so bugs are hard to find. Writing <code>"use strict";</code> at the top turns on a stricter mode that reports more mistakes.</li><li><strong>Ambiguous syntax</strong>: semicolons are optional because the language adds them for you (sometimes wrongly). The curly braces <code>{}</code> can mean an object or a block of code, depending on where they appear. A function can be a statement or an expression, depending on where it is written.</li><li><strong>Limited input and output</strong>: the language itself has very little built in for this. The simplest way to see a message is <code>console.log</code>, which prints to the <strong>console</strong>, a hidden panel for developers in the browser.</li><li><strong>Closely tied to the page</strong>: its main job is to change the page through the Document Object Model (DOM).</li><li><strong>Asynchronous and the Event Loop</strong>: JavaScript does one thing at a time but keeps a to-do queue. When a click or a server reply arrives, it joins the queue and is handled when JavaScript is free. So waiting never freezes the page.</li></ul>
+<figure class="code" data-lang="js"><figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>strict mode catches a typo</figcaption><pre><code><span class="s">"use strict"</span>;
+count = <span class="n">5</span>;   <span class="c">// Error: "count" was never declared</span>
+             <span class="c">// (without "use strict" it would silently create it)</span></code></pre></figure>
+<figure class="code" data-lang="js"><figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>a semicolon surprise</figcaption><pre><code><span class="k">function</span> getValue() {
+  <span class="k">return</span>
+    <span class="n">42</span>;      <span class="c">// JavaScript adds a semicolon right after "return"</span>
+}
+console.log(getValue());   <span class="c">// undefined, not 42</span></code></pre></figure>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 11 -->
+      <article class="slide s-6" id="slide-11">
+        <header class="bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3><span class="ico" aria-hidden="true">▶️</span>Using JS</h3>
+          <span class="no" title="Slide 11">11</span>
+        </header>
+        <div class="body">
+          <ul class="bullets">
+            <li>Not originally meant for direct scripting
+              <ul>
+                <li>Usually not run from command line like Python for instance</li>
+              </ul>
+            </li>
+            <li>Need HTML file to load the JS as a script
+              <ul>
+                <li>Requires browser to serve the files</li>
+                <li>Links and script tags etc.</li>
+                <li>May not directly work when loaded as a file</li>
+              </ul>
+            </li>
+            <li>NodeJS allows execution from command line</li>
+          </ul>
+          <p class="note">Examples here will be shown on Replit for the most part</p>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>JavaScript needs a place to run. Usually that place is a <strong>web page in a browser</strong>.</p>
+<ul class="bullets"><li>Write your code in a <code>.js</code> file. Load it from an HTML file with a <code>script</code> tag. Open the HTML file in the browser.</li><li>Sometimes this does not work if you just double-click the file, because some browser features need the files to be <strong>served</strong> by a web server. Tools like Replit handle that for you.</li><li><strong>Node.js</strong> lets you run JavaScript straight from the terminal (the command line), the way you run Python.</li></ul>
+<p>The course examples will mostly run on <strong>Replit</strong>, an online code editor, so you do not need to install anything.</p>
+<figure class="code" data-lang="html"><figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>index.html</figcaption><pre><code>&lt;script src="app.js"&gt;&lt;/script&gt;</code></pre></figure>
+<figure class="code" data-lang="js"><figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>app.js</figcaption><pre><code>console.log(<span class="s">"Hello from JavaScript"</span>);</code></pre></figure>
+<figure class="code" data-lang="plain"><figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>in a terminal (Node.js)</figcaption><pre><code>node app.js</code></pre></figure>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 12 -->
+      <article class="slide s-6" id="slide-12">
+        <header class="bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3><span class="ico" aria-hidden="true">🌳</span>DOM</h3>
+          <span class="no" title="Slide 12">12</span>
+        </header>
+        <div class="body">
+          <ul class="bullets">
+            <li>Document Object Model
+              <ul>
+                <li>Structure of the document shown on the browser</li>
+              </ul>
+            </li>
+            <li>DOM can be manipulated through JS APIs</li>
+            <li>One of the most powerful aspects of JavaScript</li>
+            <li>Input: clicks, textboxes, mouseover, …</li>
+            <li>Output: text, colours/styles, drawing, ...</li>
+          </ul>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>When a browser loads a page, it turns the HTML into a <strong>tree of objects</strong> in memory. This tree is the <strong>Document Object Model (DOM)</strong>. Every heading, paragraph and button is one branch.</p>
+<p>JavaScript can <strong>read and change</strong> this tree, and the page updates instantly. This is one of JavaScript's most powerful abilities.</p>
+<ul class="bullets"><li><strong>Input</strong> (what the user does): clicks, typing in text boxes, moving the mouse over something.</li><li><strong>Output</strong> (what JavaScript changes): text, colours and styles, drawings.</li></ul>
+<p class="analogy"><strong>Think of it like this:</strong> a family tree of your page. JavaScript is someone who can walk to any person in the tree and change their name or clothes.</p>
+<figure class="code" data-lang="js"><figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>find a branch, then change it</figcaption><pre><code><span class="k">const</span> heading = document.querySelector(<span class="s">"h1"</span>);   <span class="c">// find the &lt;h1&gt; in the tree</span>
+heading.textContent = <span class="s">"Hi!"</span>;                    <span class="c">// change it: the page updates now</span></code></pre></figure>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 13 -->
+      <article class="slide s-6" id="slide-13">
+        <header class="bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3><span class="ico" aria-hidden="true">📚</span>References</h3>
+          <span class="no" title="Slide 13">13</span>
+        </header>
+        <div class="body">
+          <ul class="bullets">
+            <li>JavaScript for impatient programmers - <a href="https://exploringjs.com" target="_blank" rel="noopener">exploringjs.com</a>
+              <ul>
+                <li>detailed reference material, focused on language, not frontend or <abbr title="Graphical User Interface">GUI</abbr> - very up to date</li>
+              </ul>
+            </li>
+            <li>Mozilla Developer Network
+              <ul>
+                <li>several examples and compatibility hints</li>
+              </ul>
+            </li>
+            <li>Learn JavaScript Online - interactive tutorial</li>
+          </ul>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>Three places to keep learning:</p>
+<ul class="bullets"><li><strong>JavaScript for impatient programmers</strong> (exploringjs.com): a detailed online book about the language itself. It is not about buttons and screens, and it is kept very up to date.</li><li><strong>Mozilla Developer Network (MDN)</strong>: the standard documentation site. It has many examples and shows which browsers support each feature.</li><li><strong>Learn JavaScript Online</strong>: an interactive tutorial where you type code and see the result as you go.</li></ul>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 14 -->
+      <article class="slide s-6" id="slide-14">
+        <header class="bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3><span class="ico" aria-hidden="true">🧰</span>Utilities</h3>
+          <span class="no" title="Slide 14">14</span>
+        </header>
+        <div class="body">
+          <ul class="bullets">
+            <li><a href="https://babeljs.io" target="_blank" rel="noopener">BabelJS</a> - Compiler converts new JS to older compatible forms</li>
+            <li>JS Console - interactive console to try out code</li>
+            <li><a href="https://replit.com" target="_blank" rel="noopener">Replit</a> - complete application development</li>
+          </ul>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>Three handy tools:</p>
+<ul class="bullets"><li><strong>BabelJS</strong>: the translator from new JavaScript to older JavaScript (see the "What version to use?" slide).</li><li><strong>JavaScript Console</strong>: a box where you type a line of JavaScript and see the answer straight away. In most browsers, press F12 and open the Console tab.</li><li><strong>Replit</strong>: a website where you can write, run and share a full project without installing anything.</li></ul>
+<figure class="code" data-lang="js"><figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>try these in the console</figcaption><pre><code><span class="n">2</span> + <span class="n">3</span>;          <span class="c">// 5</span>
+<span class="s">"Hi"</span>.length;    <span class="c">// 2</span></code></pre></figure>
+</div>
+</details>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+
+  <!-- ============ WORLD 3 : slides 15 to 28 ============ -->
+  <section class="world w3" id="world-3">
+    <header class="world-head" id="slide-15">
+      <div class="world-title">
+        <span class="badge">World 3</span>
+        <h2>JavaScript Syntax</h2>
+        <span class="no" title="Slide 15">15</span>
+      </div>
+      <ol class="path">
+        <li><span>Program structure, Comments</span></li>
+        <li><span>Identifiers, Statements, Expressions</span></li>
+        <li>
+          <span>Data Types and Variables</span>
+          <ul class="mini"><li>Strings and Templates</li></ul>
+        </li>
+        <li><span>Control Flow</span></li>
+        <li><span>Functions</span></li>
+      </ol>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>This world is the <strong>grammar</strong> of JavaScript, like learning how a sentence works before writing a story.</p>
+<ul class="bullets"><li>How a program is laid out, and how to write comments.</li><li>Identifiers (names), statements and expressions.</li><li>Data types and variables, including strings and templates.</li><li>Control flow: making choices and repeating things.</li><li>Functions: reusable blocks of code.</li></ul>
+</div>
+</details>
+    </header>
+
+    <div class="grid">
+
+      <!-- Slide 16 -->
+      <article class="slide s-12" id="slide-16">
+        <header class="bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3><span class="ico" aria-hidden="true">🖥️</span>Basic Frontend Usage</h3>
+          <span class="no" title="Slide 16">16</span>
+        </header>
+        <div class="body">
+          <div class="topics cols-3">
+            <div class="topic">
+              <p class="lead">Frontend JavaScript: must be invoked from HTML page</p>
+              <ul class="bullets">
+                <li>In context of a “Document”</li>
+                <li>will not execute if loaded directly</li>
+              </ul>
+            </div>
+            <div class="topic">
+              <p class="lead">Scripting language - no compilation step</p>
+            </div>
+            <div class="topic">
+              <p class="lead">Loosely structured - no specific header, body etc.</p>
+            </div>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>Frontend JavaScript lives <strong>inside a web page</strong> (a "Document"). If you open a <code>.js</code> file on its own, nothing happens, because there is no page for it to work on.</p>
+<p><strong>No compilation step</strong> means you write the code and the browser runs it straight away. You do not need to build or compile first.</p>
+<p><strong>Loosely structured</strong> means there is no required starting point like <code>main</code> in some other languages. The browser just reads the file from top to bottom.</p>
+<figure class="code" data-lang="js"><figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>comments and top-to-bottom order</figcaption><pre><code><span class="c">// A one-line comment</span>
+<span class="c">/* A comment that
+   runs over many lines */</span>
+
+<span class="c">// No main() needed: the browser reads from top to bottom</span>
+console.log(<span class="s">"first"</span>);
+console.log(<span class="s">"second"</span>);</code></pre></figure>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 17 -->
+      <article class="slide s-12" id="slide-17">
+        <header class="bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3><span class="ico" aria-hidden="true">🔤</span>Identifiers - the words of the language</h3>
+          <span class="no" title="Slide 17">17</span>
+        </header>
+        <div class="body">
+          <div class="topic">
+            <h4>Reserved words:</h4>
+            <ul class="chips reserved">
+              <li>await</li><li>break</li><li>case</li><li>catch</li><li>class</li><li>const</li>
+              <li>continue</li><li>debugger</li><li>default</li><li>delete</li><li>do</li><li>else</li>
+              <li>export</li><li>extends</li><li>finally</li><li>for</li><li>function</li><li>if</li>
+              <li>import</li><li>in</li><li>instanceof</li><li>let</li><li>new</li><li>return</li>
+              <li>static</li><li>super</li><li>switch</li><li>this</li><li>throw</li><li>try</li>
+              <li>typeof</li><li>var</li><li>void</li><li>while</li><li>with</li><li>yield</li>
+            </ul>
+          </div>
+          <div class="topics cols-2">
+            <div class="topic">
+              <h4>Literals (values)</h4>
+              <ul class="chips lit">
+                <li>true</li><li>false</li><li>null</li>
+              </ul>
+            </div>
+            <div class="topic">
+              <h4>Others to avoid</h4>
+              <ul class="chips avoid">
+                <li>enum</li><li>implements</li><li>package</li><li>protected</li><li>interface</li>
+                <li>private</li><li>public</li><li>Infinity</li><li>NaN</li><li>undefined</li><li>async</li>
+              </ul>
+            </div>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>An <strong>identifier</strong> is a name you choose, for a variable or a function.</p>
+<ul class="bullets"><li><strong>Reserved words</strong> already have a meaning in the language (like <code>if</code> or <code>for</code>), so you cannot use them as names.</li><li><strong>Literals</strong> are fixed values you write directly: <code>true</code>, <code>false</code> and <code>null</code>.</li><li><strong>Others to avoid</strong> are not always blocked, but they are risky. Some are kept for the future, and some have special meanings (<code>undefined</code>, <code>NaN</code>, <code>Infinity</code>, <code>async</code>).</li></ul>
+<p class="analogy"><strong>Think of it like this:</strong> reserved parking spots. You can park anywhere else, but those spots already belong to someone.</p>
+<figure class="code" data-lang="js"><figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>choosing a name</figcaption><pre><code><span class="k">let</span> score = <span class="n">10</span>;        <span class="c">// fine: "score" is a free name</span>
+<span class="k">let</span> total = score + <span class="n">1</span>; <span class="c">// also fine</span>
+<span class="c">// let if = 5;         // would be an error: "if" is reserved</span></code></pre></figure>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 18 -->
+      <article class="slide s-12" id="slide-18">
+        <header class="bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3><span class="ico" aria-hidden="true">🧮</span>Statements and Expressions</h3>
+          <span class="no" title="Slide 18">18</span>
+        </header>
+        <div class="body">
+          <div class="topics cols-2">
+            <div class="topic">
+              <h4>Expression</h4>
+              <p>Piece of code that can be executed to obtain a value to be returned</p>
+              <figure class="code">
+                <figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>expression</figcaption>
+                <pre><code>x = <span class="n">10</span>;
+<span class="s">"Hello world"</span></code></pre>
+              </figure>
+              <p>Anywhere you need a “value” - function argument, math expression etc.</p>
+            </div>
+            <div class="topic">
+              <h4>Statement</h4>
+              <p>Piece of code that can be executed</p>
+              <figure class="code">
+                <figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>statement</figcaption>
+                <pre><code><span class="k">if</span> ( … ) {
+  <span class="c">// do something</span>
+}</code></pre>
+              </figure>
+              <p>Standalone operation or side effects</p>
+            </div>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>An <strong>expression</strong> is anything that <strong>gives back a value</strong>. A <strong>statement</strong> is an instruction that <strong>does something</strong>.</p>
+<ul class="bullets"><li><strong>Expressions</strong>: <code>10</code>, <code>"Hello world"</code>, <code>2 + 3</code>. Each one produces a value, so you can use it anywhere a value is needed, such as inside a function call or a maths formula.</li><li><strong>Statements</strong>: <code>if</code>, loops, and declarations. They are standalone actions, or they have side effects (they change something).</li></ul>
+<p class="nb"><strong>Quick test:</strong> if you can put it inside <code>console.log( ... )</code>, it is an expression.</p>
+<figure class="code" data-lang="js"><figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>a value versus an action</figcaption><pre><code><span class="c">// Expressions: each one gives back a value</span>
+<span class="n">10</span>;
+<span class="s">"Hello world"</span>;
+<span class="n">2</span> + <span class="n">3</span>;
+
+<span class="c">// Statement: it performs an action</span>
+<span class="k">if</span> (<span class="n">2</span> + <span class="n">3</span> &gt; <span class="n">4</span>) {
+  console.log(<span class="s">"bigger"</span>);
+}</code></pre></figure>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 19 -->
+      <article class="slide s-12" id="slide-19">
+        <header class="bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3><span class="ico" aria-hidden="true">🧩</span>Data Types</h3>
+          <span class="no" title="Slide 19">19</span>
+        </header>
+        <div class="body">
+          <div class="topics cols-3">
+            <div class="topic">
+              <h4>Primitive data types:</h4>
+              <p>built into the language</p>
+              <ul class="chips lit">
+                <li>undefined</li><li>null</li><li>boolean</li><li>number</li><li>string</li>
+              </ul>
+              <p class="plus">(+ <code>bigint</code>, <code>symbol</code>)</p>
+            </div>
+            <div class="topic">
+              <h4>Objects:</h4>
+              <p>Compound pieces of data</p>
+            </div>
+            <div class="topic">
+              <h4>Functions</h4>
+              <ul class="bullets">
+                <li>Can be handled like objects</li>
+                <li>Objects can have functions: methods</li>
+                <li>Functions can have objects<span class="sticker warn">???</span></li>
+              </ul>
+            </div>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>Every value has a <strong>type</strong>. There are two groups:</p>
+<ul class="bullets"><li><strong>Primitive</strong> types are the simplest values built into the language: <code>undefined</code> (no value yet), <code>null</code> (deliberately empty), <code>boolean</code> (<code>true</code> or <code>false</code>), <code>number</code>, <code>string</code> (text), plus <code>bigint</code> (huge whole numbers) and <code>symbol</code> (a unique tag).</li><li><strong>Objects</strong> are bundles of related values, such as a student with a name and marks.</li></ul>
+<p><strong>Functions</strong> are special: you can handle them like any other value (store them, pass them around). An object can hold functions, and those are called <strong>methods</strong>.</p>
+<p><strong>Functions can have objects???</strong> Yes. A function is itself an object, so you can attach data to it. It looks strange, but it follows from functions being objects.</p>
+<figure class="code" data-lang="js"><figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>the main types in action</figcaption><pre><code><span class="k">let</span> age = <span class="n">21</span>;                                <span class="c">// number</span>
+<span class="k">let</span> name = <span class="s">"Asha"</span>;                           <span class="c">// string</span>
+<span class="k">let</span> ok = <span class="k">true</span>;                               <span class="c">// boolean</span>
+<span class="k">let</span> student = { name: <span class="s">"Asha"</span>, marks: <span class="n">90</span> };   <span class="c">// object</span>
+
+<span class="k">let</span> dog = {
+  name: <span class="s">"Rex"</span>,
+  bark: <span class="k">function</span> () { console.log(<span class="s">"Woof"</span>); }   <span class="c">// a method</span>
+};
+dog.bark();                                  <span class="c">// Woof</span>
+
+<span class="k">function</span> counter() {}
+counter.calls = <span class="n">0</span>;                           <span class="c">// a function holding data</span></code></pre></figure>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 20 -->
+      <article class="slide s-6" id="slide-20">
+        <header class="bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3><span class="ico" aria-hidden="true">🔡</span>Strings</h3>
+          <span class="no" title="Slide 20">20</span>
+        </header>
+        <div class="body">
+          <ul class="bullets">
+            <li>Source code is expected to be in Unicode
+              <ul>
+                <li>most engines expect UTF-16 encoding</li>
+              </ul>
+            </li>
+            <li>String functions like length can give surprising results on non-ASCII words</li>
+            <li>Can have variables in other languages!
+              <ul>
+                <li>But best avoided… keep readability in mind</li>
+              </ul>
+            </li>
+          </ul>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>A <strong>string</strong> is text. JavaScript code is written in <strong>Unicode</strong>, a huge character set that covers every language and emoji. Most engines store text as <strong>UTF-16</strong>, where each character takes one or two 16-bit pieces.</p>
+<p>Because <code>length</code> counts those pieces, an emoji or a rare symbol can look like one character but count as two. This surprises people.</p>
+<p>JavaScript even allows variable names in other languages, but it is best to avoid that so your code stays easy to read.</p>
+<p><strong>Templates</strong> (strings in backticks) let you put values inside text with <code>${ }</code>.</p>
+<figure class="code" data-lang="js"><figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>length surprises and templates</figcaption><pre><code><span class="s">"hi"</span>.length;        <span class="c">// 2</span>
+<span class="s">"😀"</span>.length;        <span class="c">// 2  (one emoji, but two 16-bit pieces)</span>
+
+<span class="k">let</span> name = <span class="s">"Asha"</span>;
+<span class="s">`Hello, ${name}!`</span>;  <span class="c">// "Hello, Asha!"  (a template string)</span></code></pre></figure>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 21 -->
+      <article class="slide s-6" id="slide-21">
+        <header class="bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3><span class="ico" aria-hidden="true">🕳️</span>Non-Values</h3>
+          <span class="no" title="Slide 21">21</span>
+        </header>
+        <div class="body">
+          <div class="topics cols-2">
+            <div class="topic">
+              <h4><code>undefined</code></h4>
+              <ul class="bullets">
+                <li>Usually implies not initialized</li>
+                <li>Default unknown state</li>
+              </ul>
+            </div>
+            <div class="topic">
+              <h4><code>null</code></h4>
+              <ul class="bullets">
+                <li>Explicitly set to a non-value</li>
+              </ul>
+            </div>
+          </div>
+          <p class="callout">Very similar and may be used interchangeably in most places - Keep context in mind when using for clarity of code</p>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<ul class="bullets"><li><code>undefined</code> means <strong>no value has been given yet</strong>. JavaScript uses it by default, for example for a variable that was never set.</li><li><code>null</code> means <strong>nothing, on purpose</strong>. You set it yourself.</li></ul>
+<p>They are very similar and often interchangeable. Pick a meaning for each and stay consistent, so your code is clear.</p>
+<p class="analogy"><strong>Think of it like this:</strong> <code>undefined</code> is an empty form field that nobody has filled in yet. <code>null</code> is a field where someone wrote "not applicable".</p>
+<figure class="code" data-lang="js"><figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>two kinds of "nothing"</figcaption><pre><code><span class="k">let</span> a;                 <span class="c">// never given a value</span>
+console.log(a);        <span class="c">// undefined (output is undefined only if declaration is let or var)</span>
+
+<span class="k">let</span> b = <span class="k">null</span>;          <span class="c">// deliberately empty</span>
+console.log(b);       <span class="c">// null</span>
+
+console.log(a == b);   <span class="c">// true  (loosely equal)</span>
+console.log(a === b);  <span class="c">// false (not the same type)</span></code></pre></figure>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 22 -->
+      <article class="slide s-6" id="slide-22">
+        <header class="bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3><span class="ico" aria-hidden="true">⚖️</span>Operators and Comparisons</h3>
+          <span class="no" title="Slide 22">22</span>
+        </header>
+        <div class="body">
+          <ul class="bullets">
+            <li>Addition, subtraction etc.
+              <ul>
+                <li>Numbers, Strings</li>
+              </ul>
+            </li>
+            <li>Coercion
+              <ul>
+                <li>Convert to similar type where operation is defined</li>
+                <li><span class="sticker warn">Can lead to problems - needs care</span></li>
+              </ul>
+            </li>
+            <li>Comparison:
+              <ul>
+                <li>Loose equality: <code>==</code> tries to coerce</li>
+                <li>Strict equality: <code>===</code> no coercion</li>
+              </ul>
+            </li>
+            <li>Important for iteration, conditions</li>
+          </ul>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<ul class="bullets"><li><strong>Operators</strong> like <code>+</code>, <code>-</code>, <code>*</code> and <code>/</code> work on numbers. <code>+</code> also joins strings.</li><li><strong>Coercion</strong> means JavaScript quietly converts one type into another so an operation can work. It is handy, but it can cause surprises.</li><li><strong>Loose equality</strong> <code>==</code> converts types first, then compares. <strong>Strict equality</strong> <code>===</code> compares without converting.</li></ul>
+<p>Comparisons decide which <code>if</code> path runs and when a loop stops, so a wrong comparison means a wrong decision.</p>
+<p class="nb"><strong>Habit to build:</strong> use <code>===</code> almost always.</p>
+<figure class="code" data-lang="js"><figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>coercion and equality</figcaption><pre><code><span class="n">5</span> + <span class="n">3</span>;        <span class="c">// 8</span>
+<span class="s">"5"</span> + <span class="n">3</span>;      <span class="c">// "53"  (the 3 became text and was joined)</span>
+<span class="s">"5"</span> - <span class="n">3</span>;      <span class="c">// 2     (the "5" became a number)</span>
+
+<span class="n">5</span> == <span class="s">"5"</span>;     <span class="c">// true  (loose: converts first)</span>
+<span class="n">5</span> === <span class="s">"5"</span>;    <span class="c">// false (strict: different types)</span>
+<span class="n">0</span> == <span class="k">false</span>;   <span class="c">// true  (surprise!)</span>
+<span class="n">0</span> === <span class="k">false</span>;  <span class="c">// false</span></code></pre></figure>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 23 -->
+      <article class="slide s-6" id="slide-23">
+        <header class="bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3><span class="ico" aria-hidden="true">📦</span>Variables and Scoping</h3>
+          <span class="no" title="Slide 23">23</span>
+        </header>
+        <div class="body">
+          <ul class="bullets">
+            <li>Any non-reserved identifier can be used as a “placeholder” or “variable”</li>
+            <li>Scope:
+              <ul>
+                <li>Should the variable be visible everywhere in all scripts or only in a specific area?</li>
+                <li>Namespaces and limiting scope</li>
+              </ul>
+            </li>
+            <li><code>let</code>, <code>const</code> are used for declaring variables
+              <ul>
+                <li>Unlike Python, variables MUST be declared</li>
+                <li>Unlike C, their type need NOT be declared</li>
+                <li><code>var</code> was originally used for declaring variables, but has function level scope - <span class="sticker warn">avoid</span></li>
+              </ul>
+            </li>
+          </ul>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>A <strong>variable</strong> is a labelled box that holds a value. In JavaScript you must <strong>declare</strong> it with <code>let</code> or <code>const</code>. Python lets you skip this. C also makes you write the type. JavaScript needs the keyword but <strong>not</strong> the type.</p>
+<p><strong>Scope</strong> is where a variable can be seen. Should it be visible everywhere, or only in one small area? A smaller scope is safer, because fewer parts of the program can change it by accident. <strong>Namespaces</strong> group related names under one label so they do not clash.</p>
+<p><code>var</code> is the old way. It only respects function boundaries, so it leaks out of blocks like <code>if</code> and <code>for</code>. Avoid it.</p>
+<figure class="code" data-lang="js"><figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>block scope versus var</figcaption><pre><code><span class="k">let</span> score = <span class="n">10</span>;          <span class="c">// no type needed</span>
+
+<span class="k">if</span> (<span class="k">true</span>) {
+  <span class="k">let</span> secret = <span class="n">1</span>;        <span class="c">// visible only inside these braces</span>
+  <span class="k">var</span> leaky = <span class="n">2</span>;         <span class="c">// var ignores the braces</span>
+}
+
+console.log(leaky);      <span class="c">// 2</span>
+console.log(secret);     <span class="c">// Error: secret is not defined</span></code></pre></figure>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 24 -->
+      <article class="slide s-6" id="slide-24">
+        <header class="bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3><span class="ico" aria-hidden="true">🔒</span>let and const</h3>
+          <span class="no" title="Slide 24">24</span>
+        </header>
+        <div class="body">
+          <div class="topic">
+            <p class="lead"><code>const</code>: declares an immutable object</p>
+            <ul class="bullets">
+              <li>Value cannot be changed once assigned</li>
+              <li>But only within scope</li>
+            </ul>
+          </div>
+          <div class="topic">
+            <p class="lead"><code>let</code>: variable that can be updated</p>
+            <ul class="bullets">
+              <li>index variable in for loops</li>
+              <li>general variables</li>
+            </ul>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<ul class="bullets"><li><strong><code>const</code></strong>: the name is locked to its first value, so you cannot reassign it. The lock only holds inside the scope where it was declared.</li><li><strong><code>let</code></strong>: the variable can change later. Use it for loop counters (like <code>i</code>) and other values that must update.</li></ul>
+<p class="nb"><strong>Heads up:</strong> <code>const</code> locks the name, not the inside of an object or list. You can still add items to a <code>const</code> list.</p>
+<figure class="code" data-lang="js"><figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>locked versus changeable</figcaption><pre><code><span class="k">const</span> pi = <span class="n">3.14</span>;
+pi = <span class="n">3</span>;                  <span class="c">// Error: cannot reassign a const</span>
+
+<span class="k">let</span> count = <span class="n">0</span>;
+count = count + <span class="n">1</span>;       <span class="c">// fine</span>
+
+<span class="k">const</span> list = [<span class="n">1</span>, <span class="n">2</span>];
+list.push(<span class="n">3</span>);            <span class="c">// allowed: the contents may change</span>
+<span class="c">// list = [9];           // not allowed: the name is locked</span>
+
+<span class="k">for</span> (<span class="k">let</span> i = <span class="n">0</span>; i &lt; <span class="n">3</span>; i++) {   <span class="c">// i changes each round</span>
+  console.log(i);
+}</code></pre></figure>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 25 -->
+      <article class="slide s-6" id="slide-25">
+        <header class="bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3><span class="ico" aria-hidden="true">🔀</span>Control Flow</h3>
+          <span class="no" title="Slide 25">25</span>
+        </header>
+        <div class="body">
+          <div class="topics cols-2">
+            <div class="topic">
+              <h4>Conditional execution:</h4>
+              <ul class="chips lit"><li>if</li><li>else</li></ul>
+            </div>
+            <div class="topic">
+              <h4>Iteration</h4>
+              <ul class="chips lit"><li>for</li><li>while</li></ul>
+            </div>
+            <div class="topic">
+              <h4>Change in flow</h4>
+              <ul class="chips lit"><li>break</li><li>continue</li></ul>
+            </div>
+            <div class="topic">
+              <h4>Choice</h4>
+              <ul class="chips lit"><li>switch</li></ul>
+            </div>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>Code normally runs from top to bottom. <strong>Control flow</strong> changes that path.</p>
+<ul class="bullets"><li><strong><code>if</code> / <code>else</code></strong>: choose between paths.</li><li><strong><code>for</code> / <code>while</code></strong>: repeat.</li><li><strong><code>break</code></strong>: leave a loop right now. <strong><code>continue</code></strong>: skip to the next round.</li><li><strong><code>switch</code></strong>: pick one of many options.</li></ul>
+<figure class="code" data-lang="js"><figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>choosing and repeating</figcaption><pre><code><span class="k">let</span> marks = <span class="n">55</span>;
+<span class="k">let</span> day = <span class="s">"Sat"</span>;
+
+<span class="k">if</span> (marks &gt;= <span class="n">40</span>) { console.log(<span class="s">"pass"</span>); } <span class="k">else</span> { console.log(<span class="s">"fail"</span>); }
+
+<span class="k">for</span> (<span class="k">let</span> i = <span class="n">1</span>; i &lt;= <span class="n">3</span>; i++) { console.log(i); }   <span class="c">// 1 2 3</span>
+
+<span class="k">let</span> n = <span class="n">3</span>;
+<span class="k">while</span> (n &gt; <span class="n">0</span>) { n = n - <span class="n">1</span>; }                       <span class="c">// repeats 3 times</span>
+
+<span class="k">for</span> (<span class="k">let</span> i = <span class="n">1</span>; i &lt;= <span class="n">5</span>; i++) {
+  <span class="k">if</span> (i === <span class="n">2</span>) <span class="k">continue</span>;   <span class="c">// skip 2</span>
+  <span class="k">if</span> (i === <span class="n">4</span>) <span class="k">break</span>;      <span class="c">// stop at 4</span>
+  console.log(i);          <span class="c">// prints 1 then 3</span>
+}
+
+<span class="k">switch</span> (day) {
+  <span class="k">case</span> <span class="s">"Sat"</span>: console.log(<span class="s">"weekend"</span>); <span class="k">break</span>;
+  <span class="k">default</span>:    console.log(<span class="s">"weekday"</span>);
+}</code></pre></figure>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 26 -->
+      <article class="slide s-12" id="slide-26">
+        <header class="bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3><span class="ico" aria-hidden="true">⚙️</span>Functions</h3>
+          <span class="no" title="Slide 26">26</span>
+        </header>
+        <div class="body">
+          <div class="topics cols-3">
+            <div class="topic">
+              <p class="lead">Reusable block of code</p>
+            </div>
+            <div class="topic">
+              <p class="lead">Can take parameters or arguments and perform computation</p>
+            </div>
+            <div class="topic">
+              <p class="lead">Functions are themselves objects that can be assigned!</p>
+            </div>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>A <strong>function</strong> is a reusable block of code, like a recipe you write once and use many times.</p>
+<p>It can take <strong>inputs</strong> (called parameters when you define it, and arguments when you call it), do some work, and give back an answer.</p>
+<p>In JavaScript, functions are objects themselves. So you can store them in variables, pass them to other functions, and assign them like any other value.</p>
+<figure class="code" data-lang="js"><figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>write once, use many times</figcaption><pre><code><span class="k">function</span> greet(name) {        <span class="c">// name is the parameter</span>
+  <span class="k">return</span> <span class="s">"Hello, "</span> + name;
+}
+greet(<span class="s">"Asha"</span>);                <span class="c">// "Hello, Asha"   ("Asha" is the argument)</span>
+
+<span class="k">const</span> sayHi = greet;          <span class="c">// a function stored in a variable</span>
+sayHi(<span class="s">"Ravi"</span>);                <span class="c">// "Hello, Ravi"</span></code></pre></figure>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 27 -->
+      <article class="slide s-12" id="slide-27">
+        <header class="bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3><span class="ico" aria-hidden="true">✏️</span>Function Notation</h3>
+          <span class="no" title="Slide 27">27</span>
+        </header>
+        <div class="body">
+          <div class="codes">
+            <figure class="code">
+              <figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>Regular declaration</figcaption>
+              <pre><code><span class="k">function</span> <span class="f">add</span>(x, y)
+{
+  <span class="k">return</span> x + y;
+}
+<span class="c">// Statement</span></code></pre>
+            </figure>
+            <figure class="code">
+              <figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>Named variable</figcaption>
+              <pre><code><span class="k">let</span> <span class="f">add</span> =
+<span class="k">function</span>(x, y) {
+  <span class="k">return</span> x + y;
+}
+<span class="c">// Expression</span></code></pre>
+            </figure>
+            <figure class="code">
+              <figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>Arrow function</figcaption>
+              <pre><code><span class="k">let</span> <span class="f">add</span> =
+(x, y) =&gt; x + y;
+<span class="c">// Expression</span></code></pre>
+            </figure>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>There are three ways to write the same function:</p>
+<ul class="bullets"><li><strong>Regular declaration</strong> (a statement): the oldest way. You can call it even above the line where it is written.</li><li><strong>Named variable</strong> (an expression): a function stored in a variable. It only works after that line.</li><li><strong>Arrow function</strong> (an expression): the shortest form. With one expression and no curly braces, the result is returned automatically.</li></ul>
+<figure class="code" data-lang="js"><figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>three ways, same result</figcaption><pre><code><span class="k">function</span> add1(x, y) { <span class="k">return</span> x + y; }              <span class="c">// statement</span>
+<span class="k">const</span> add2 = <span class="k">function</span> (x, y) { <span class="k">return</span> x + y; };    <span class="c">// expression</span>
+<span class="k">const</span> add3 = (x, y) =&gt; x + y;                      <span class="c">// arrow, also an expression</span>
+
+console.log(add1(<span class="n">2</span>, <span class="n">3</span>), add2(<span class="n">2</span>, <span class="n">3</span>), add3(<span class="n">2</span>, <span class="n">3</span>));   <span class="c">// 5 5 5</span></code></pre></figure>
+</div>
+</details>
+        </div>
+      </article>
+
+      <!-- Slide 28 -->
+      <article class="slide s-12" id="slide-28">
+        <header class="bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3><span class="ico" aria-hidden="true">🎭</span>Anonymous functions and <abbr title="Immediately Invoked Function Expressions">IIFEs</abbr></h3>
+          <span class="no" title="Slide 28">28</span>
+        </header>
+        <div class="body">
+          <figure class="code">
+            <figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>anonymous functions</figcaption>
+            <pre><code><span class="k">let</span> x = <span class="k">function</span> () { <span class="k">return</span> <span class="s">"hello"</span>} <span class="c">// Anonymous bound</span>
+(<span class="k">function</span> () { <span class="k">return</span> <span class="s">"hello"</span> }()) <span class="c">// Declare and invoke</span></code></pre>
+          </figure>
+          <div class="topics cols-2">
+            <div class="topic">
+              <h4>Why?</h4>
+              <p>Older JS versions did not have good scoping rules.</p>
+            </div>
+            <div class="topic">
+              <p class="lead"><span class="sticker warn">Avoid IIFEs in modern code - poor readability</span></p>
+            </div>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>An <strong>anonymous function</strong> has no name. You either store it in a variable or hand it straight to something else.</p>
+<p>An <strong>Immediately Invoked Function Expression (IIFE)</strong> is an anonymous function wrapped in brackets and run on the spot.</p>
+<p><strong>Why did people do this?</strong> Old JavaScript had no good way to keep variables private. Wrapping code in a function created a private room, so its variables did not leak out. Today <code>let</code>, <code>const</code> and modules do that job, so IIFEs are rarely needed and are hard to read. Avoid them in new code.</p>
+<figure class="code" data-lang="js"><figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>old trick versus modern way</figcaption><pre><code><span class="c">// An anonymous function stored in a variable</span>
+<span class="k">let</span> hello = <span class="k">function</span> () { <span class="k">return</span> <span class="s">"hello"</span>; };
+
+<span class="c">// An IIFE: wrapped in brackets and run immediately</span>
+(<span class="k">function</span> () {
+  <span class="k">var</span> secret = <span class="s">"hidden"</span>;
+  console.log(<span class="s">"running now"</span>);
+})();
+<span class="c">// "secret" does not exist out here</span>
+
+<span class="c">// Today a plain block gives the same privacy</span>
+{
+  <span class="k">let</span> secretToday = <span class="s">"hidden"</span>;
+}</code></pre></figure>
+</div>
+</details>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+
+  <!-- ============ WORLD 4 : slides 29 and 30 ============ -->
+  <section class="world w4" id="world-4">
+    <header class="world-head" id="slide-29">
+      <div class="world-title">
+        <span class="badge">World 4</span>
+        <h2>DOM API</h2>
+        <span class="no" title="Slide 29">29</span>
+      </div>
+      <ol class="path">
+        <li><span>User Interaction</span></li>
+        <li><span>Examples</span></li>
+      </ol>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p>This world is where JavaScript meets the page: how it <strong>hears</strong> what the user does and <strong>changes</strong> what the user sees.</p>
+<ul class="bullets"><li>User interaction: clicks, typing and other actions.</li><li>Examples: small programs that react to the user.</li></ul>
+</div>
+</details>
+    </header>
+
+    <div class="grid">
+
+      <!-- Slide 30 -->
+      <article class="slide s-12" id="slide-30">
+        <header class="bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3><span class="ico" aria-hidden="true">🖱️</span>Interaction</h3>
+          <span class="no" title="Slide 30">30</span>
+        </header>
+        <div class="body">
+          <div class="topics cols-2">
+            <div class="topic">
+              <h4><code>console.log</code> is very limited</h4>
+              <ul class="bullets">
+                <li>variants for error logging etc.</li>
+                <li>But mostly useful only for limited form of debugging - not production use</li>
+              </ul>
+            </div>
+            <div class="topic">
+              <p class="lead">But JS was designed for document manipulation!... also to keep in mind: Flask is a Backend framework and VueJS is a Frontend framework.</p>
+            </div>
+          </div>
+          <div class="io">
+            <div class="io-card">
+              <h4>Inputs from DOM</h4>
+              <p>mouse, text, clicks</p>
+            </div>
+            <div class="dom-node" aria-hidden="true">DOM</div>
+            <div class="io-card">
+              <h4>Outputs to DOM</h4>
+              <p>manipulation of text, colours etc.</p>
+            </div>
+          </div>
+<details class="simple" open>
+<summary>In simple words</summary>
+<div class="simple-body">
+<p><code>console.log</code> only writes to the hidden developer console. That is fine for checking your own work, but real users never see it. So it is for debugging, not for the finished app.</p>
+<p>JavaScript was <strong>designed to change documents</strong>. The pattern is always the same:</p>
+<ul class="bullets"><li><strong>Input from the DOM</strong>: listen for what the user does, such as mouse moves, typing and clicks.</li><li><strong>Output to the DOM</strong>: change the page, such as its text and colours.</li></ul>
+<p class="analogy"><strong>Think of it like this:</strong> a smart doorbell. It listens for someone pressing it (input), then plays a sound (output).</p>
+<figure class="code" data-lang="html"><figcaption><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>listen for a click, then change the page</figcaption><pre><code>&lt;input id="name" placeholder="Your name"&gt;
+&lt;button id="go"&gt;Greet&lt;/button&gt;
+&lt;p id="out"&gt;&lt;/p&gt;
+
+&lt;script&gt;
+  const input = document.getElementById("name");
+  const out = document.getElementById("out");
+
+  document.getElementById("go").addEventListener("click", () =&gt; {
+    out.textContent = "Hello, " + input.value + "!";   // output
+    out.style.color = "tomato";
+  });
+&lt;/script&gt;</code></pre></figure>
+</div>
+</details>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <p class="clear">Level complete</p>
+  <a class="btn go" href="#top">Back to top</a>
+  <a class="btn go" href="index.html">Back to hub</a>
+</footer>
+
+</body>
+</html>
